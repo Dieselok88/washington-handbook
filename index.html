@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GOV Handbook — Beta 1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <div>
+          <h1>GOV Handbook</h1>
+          <p>RolePlay Documentation • Washington</p>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <input id="globalSearch" type="search" placeholder="Поиск: 17.6, оружие, побег…">
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-section="home">Главная</button>
+        <button class="nav-item" data-section="government">Government</button>
+        <button class="nav-item" data-section="immunity">Неприкосновенность</button>
+        <button class="nav-item" data-section="pgo">Памятка ПГО</button>
+        <button class="nav-item" data-section="frequent">Частые статьи</button>
+        <button class="nav-item" data-section="criminal">Уголовный кодекс</button>
+        <button class="nav-item" data-section="miranda">Права по Миранде</button>
+        <button class="nav-item" data-section="scenarios">Пошаговые сценарии</button>
+        <button class="nav-item" data-section="phrases">RP-фразы</button>
+        <button class="nav-item" data-section="glossary">Глоссарий</button>
+        <button class="nav-item" data-section="faq">FAQ</button>
+        <button class="nav-item" data-section="tools">Инструменты</button>
+        <button class="nav-item" data-section="mistakes">Типичные ошибки</button>
+        <button class="nav-item" data-section="changes">История изменений</button>
+        <button class="nav-item" data-section="sources">Источники</button>
+        <button class="nav-item" data-section="about">О проекте</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="themeToggle" class="theme-toggle">Тёмная тема</button>
+        <span>Majestic RP • Washington Edition</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuToggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
+        <div>
+          <h2 id="pageTitle">Главная</h2>
+          <p id="pageSubtitle">Портал сотрудников государственных организаций • Washington</p>
+        </div>
+        <div class="version">v1.0.1</div>
+      </header>
+
+      <section id="home" class="page-section active">
+        <div class="hero-card">
+          <div class="eyebrow">ROLEPLAY DOCUMENTATION</div>
+          <h3>Единая база знаний для государственных организаций</h3>
+          <p>Быстрый поиск статей, готовый текст Миранды и пошаговые памятки для игровых процессуальных действий.</p>
+          <div class="hero-actions">
+            <button class="primary" data-jump="criminal">Открыть уголовный кодекс</button>
+            <button class="secondary" data-jump="miranda">Открыть Миранду</button>
+          </div>
+        </div>
+
+
+        <div class="home-dashboard">
+          <section class="dashboard-card accent-card">
+            <div class="dashboard-kicker">БЫСТРЫЙ СТАРТ</div>
+            <h4>Открой нужный раздел за секунду</h4>
+            <div class="dashboard-actions">
+              <button data-jump="frequent">Частые статьи</button>
+              <button data-jump="miranda">Миранда</button>
+              <button data-jump="scenarios">Сценарии</button>
+              <button data-jump="phrases">RP-фразы</button>
+            </div>
+          </section>
+
+          <section class="dashboard-card">
+            <div class="dashboard-kicker">СЕЙЧАС ПОД РУКОЙ</div>
+            <h4>Мои избранные</h4>
+            <div id="homeFavorites" class="home-favorites"></div>
+          </section>
+
+          <section class="dashboard-card">
+            <div class="dashboard-kicker">ИСТОРИЯ</div>
+            <h4>Недавно открытые статьи</h4>
+            <div id="homeRecent" class="home-favorites"></div>
+          </section>
+
+          <section class="dashboard-card">
+            <div class="dashboard-kicker">ВЕРСИЯ</div>
+            <h4>GOV Handbook v1.0.1</h4>
+            <p>Полный рабочий портал: статьи, Миранда, сценарии, RP-фразы и инструменты.</p>
+          </section>
+        </div>
+
+        <div class="disclaimer">
+          <strong>Важно:</strong> данный handbook создан исключительно для RolePlay-проекта Majestic RP.
+          Все статьи, процедуры и формулировки являются частью игрового процесса и не относятся к реальному законодательству.
+        </div>
+
+
+        <div class="dashboard-grid">
+          <section class="mini-panel">
+            <div class="mini-panel-head">
+              <h4>Быстрый переход по статье</h4>
+              <span>Введите номер</span>
+            </div>
+            <div class="quick-jump-row">
+              <input id="quickJumpInput" class="search-inline" placeholder="Например: 17.6">
+              <button id="quickJumpButton" class="copy-btn">Открыть</button>
+            </div>
+          </section>
+
+          <section class="mini-panel">
+            <div class="mini-panel-head">
+              <h4>Недавно открытые</h4>
+              <span>Последние статьи</span>
+            </div>
+            <div id="recentArticles" class="recent-list"></div>
+          </section>
+        </div>
+
+        <div class="cards-grid">
+          <button class="feature-card" data-jump="frequent">
+            <span class="feature-kicker">БЫСТРЫЙ ДОСТУП</span>
+            <h4>Частые статьи</h4>
+            <p>Самые используемые статьи — в одном разделе.</p>
+          </button>
+          <button class="feature-card" data-jump="criminal">
+            <span class="feature-kicker">КОДЕКС</span>
+            <h4>Уголовный кодекс</h4>
+            <p>Поиск по номеру, названию и ключевым словам.</p>
+          </button>
+          <button class="feature-card" data-jump="miranda">
+            <span class="feature-kicker">ПАМЯТКА</span>
+            <h4>Права по Миранде</h4>
+            <p>Полная и сокращённая версии с копированием.</p>
+          </button>
+          <button class="feature-card" data-jump="scenarios">
+            <span class="feature-kicker">АЛГОРИТМЫ</span>
+            <h4>Пошаговые сценарии</h4>
+            <p>Задержание, обыск, установление личности.</p>
+          </button>
+        </div>
+      </section>
+
+
+
+      
+      <section id="government" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">WASHINGTON • GOVERNMENT</div>
+            <h3>Структура и подразделения</h3>
+          </div>
+        </div>
+
+        <div class="source-note">
+          <strong>Важно:</strong> раздел составлен по открытым документам Washington. При изменении устава или закона приоритет имеет актуальная публикация официального форума.
+        </div>
+
+        <div class="org-tree">
+          <div class="org-root">Government</div>
+          <div class="org-line"></div>
+          <div class="org-node primary">United States Secret Service (USSS)</div>
+          <div class="org-branches">
+            <div class="org-node">CAT</div>
+            <div class="org-node">DSA</div>
+            <div class="org-node">USMS</div>
+          </div>
+        </div>
+
+        <div class="gov-overview">
+          <article class="gov-card featured">
+            <div class="gov-card-kicker">UNITED STATES SECRET SERVICE</div>
+            <h4>USSS — основная служба</h4>
+            <p>Секретная служба объединяет охранные, тактические и исполнительные направления. В открытом уставе Washington перечислены тактические группы CAT, DSA и USMS.</p>
+            <div class="legal-source">Основание: Устав United States Secret Service [USSS], Washington.</div>
+          </article>
+
+          <article class="gov-card">
+            <div class="gov-card-kicker">COUNTER-ASSAULT TEAM</div>
+            <h4>CAT — тактическая группа</h4>
+            <p>Тактическое направление USSS. Используется при задачах повышенного риска, усилении охраны и силовом сопровождении операций в пределах устава и распоряжений руководства.</p>
+            <div class="legal-warning">Конкретные полномочия и порядок привлечения сверяйте с действующим уставом.</div>
+          </article>
+
+          <article class="gov-card">
+            <div class="gov-card-kicker">DSA</div>
+            <h4>DSA — охранно-организационное направление</h4>
+            <p>В опубликованном уставе DSA выделена как отдельная тактическая группа; среди открыто индексируемых обязанностей упоминаются рекрутинг и организация внутренней работы.</p>
+            <div class="legal-warning">Полный перечень обязанностей может быть шире — ориентируйтесь на актуальный устав Washington.</div>
+          </article>
+
+          <article class="gov-card">
+            <div class="gov-card-kicker">UNITED STATES MARSHALS SERVICE</div>
+            <h4>USMS — исполнение решений</h4>
+            <p>В обязанности агентов USMS входят исполнение судебных постановлений, уведомление и передача прокурорских постановлений, а также необходимые действия по их исполнению.</p>
+            <div class="legal-source">Основание: Устав United States Secret Service [USSS], Washington.</div>
+          </article>
+        </div>
+
+        <div class="responsibility-table">
+          <div class="responsibility-row head">
+            <span>Подразделение</span><span>Основной ориентир</span><span>Когда обращаться</span>
+          </div>
+          <div class="responsibility-row">
+            <strong>USSS</strong><span>Охрана, координация, специальные задачи</span><span>Общие вопросы службы и охраны</span>
+          </div>
+          <div class="responsibility-row">
+            <strong>CAT</strong><span>Тактическое усиление</span><span>Ситуации повышенного риска</span>
+          </div>
+          <div class="responsibility-row">
+            <strong>DSA</strong><span>Внутренняя организация и охранные задачи</span><span>Рекрутинг, организация службы, задачи группы</span>
+          </div>
+          <div class="responsibility-row">
+            <strong>USMS</strong><span>Исполнение судебных и прокурорских актов</span><span>Постановления, уведомления, исполнение решений</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="immunity" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ОСОБЫЙ ПРАВОВОЙ СТАТУС</div>
+            <h3>Неприкосновенные должностные лица</h3>
+          </div>
+        </div>
+
+        <div class="source-note">
+          Неприкосновенность не означает, что лицо «выше закона». Она меняет порядок привлечения к ответственности и проведения процессуальных действий.
+        </div>
+
+        <div class="immunity-grid">
+          <article class="immunity-card">
+            <span class="immunity-rank">01</span>
+            <h4>Губернатор штата</h4>
+            <p>Прямо указан в актуальном законе о статусе неприкосновенности должностных лиц.</p>
+          </article>
+          <article class="immunity-card">
+            <span class="immunity-rank">02</span>
+            <h4>Вице-губернатор</h4>
+            <p>Прямо указан в актуальном законе о статусе неприкосновенности должностных лиц.</p>
+          </article>
+          <article class="immunity-card">
+            <span class="immunity-rank">03</span>
+            <h4>Иные лица по действующему закону</h4>
+            <p>Перечень может включать представителей прокуратуры, суда и руководства госорганизаций. Перед действием откройте актуальную редакцию закона Washington.</p>
+          </article>
+        </div>
+
+        <div class="procedure-alert">
+          <strong>Перед задержанием или иным принудительным действием:</strong>
+          <ol>
+            <li>Установите точную должность лица.</li>
+            <li>Проверьте актуальный перечень в законе о неприкосновенности.</li>
+            <li>Установите, требуется ли специальный ордер или ограничение статуса.</li>
+            <li>Свяжитесь с уполномоченным руководителем или прокуратурой.</li>
+            <li>Зафиксируйте основания своих действий.</li>
+          </ol>
+        </div>
+
+        <div class="legal-source-block">
+          <b>Официальный документ:</b>
+          Закон «О статусе неприкосновенности должностных лиц», Washington, публикация от 24.02.2026.
+        </div>
+      </section>
+
+      <section id="pgo" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ПРАВИЛА ГОСУДАРСТВЕННЫХ ОРГАНИЗАЦИЙ</div>
+            <h3>Памятка сотруднику</h3>
+          </div>
+        </div>
+
+        <div class="pgo-banner">
+          <strong>ПГО — это серверные правила.</strong>
+          Нарушение может повлечь административное наказание аккаунта независимо от наличия или отсутствия состава внутриигровой статьи.
+        </div>
+
+        <div class="pgo-grid">
+          <article class="pgo-card danger">
+            <div class="pgo-label">РИСК НАКАЗАНИЯ</div>
+            <h4>Злоупотребление функционалом</h4>
+            <p>Запрещено намеренно использовать функционал государственной структуры с нарушением RP-логики. Внутриигровая должность не оправдывает серверное нарушение.</p>
+          </article>
+          <article class="pgo-card">
+            <div class="pgo-label">ПРОЦЕДУРА</div>
+            <h4>Законность требования</h4>
+            <p>Перед применением 17.6 убедитесь, что требование действительно законное, понятное и относится к компетенции сотрудника.</p>
+            <button class="pgo-link" data-pgo-code="17.6">Открыть 17.6</button>
+          </article>
+          <article class="pgo-card">
+            <div class="pgo-label">ЗАДЕРЖАНИЕ</div>
+            <h4>Не путайте статьи</h4>
+            <p>Помеха задержанию, побег и неповиновение — разные составы. Проверяйте фактические действия, а не добавляйте статьи автоматически.</p>
+            <div class="pgo-code-row">
+              <button class="pgo-link" data-pgo-code="17.9">17.9</button>
+              <button class="pgo-link" data-pgo-code="17.10">17.10</button>
+              <button class="pgo-link" data-pgo-code="17.6">17.6</button>
+            </div>
+          </article>
+          <article class="pgo-card danger">
+            <div class="pgo-label">ОСОБЫЙ СТАТУС</div>
+            <h4>Неприкосновенные лица</h4>
+            <p>Самовольные процессуальные действия в отношении лица с иммунитетом могут нарушить и закон штата, и ПГО. Сначала проверяйте статус и порядок.</p>
+          </article>
+          <article class="pgo-card">
+            <div class="pgo-label">ДОКАЗАТЕЛЬСТВА</div>
+            <h4>Фиксируйте основания</h4>
+            <p>Видео, найденные предметы, изъятие, требования и отказ должны быть зафиксированы настолько, насколько этого требуют правила и процедура сервера.</p>
+          </article>
+          <article class="pgo-card">
+            <div class="pgo-label">АКТУАЛЬНОСТЬ</div>
+            <h4>Проверяйте официальный форум</h4>
+            <p>Handbook — краткая памятка. Точное наказание и полный текст правила всегда берите из действующей публикации ПГО.</p>
+          </article>
+        </div>
+
+        <div class="legal-source-block">
+          <b>Источник:</b> официальный раздел «Правила государственных организаций» Majestic RP.
+          В handbook намеренно не указаны фиксированные сроки блокировки: администрация может менять санкции и учитывать обстоятельства нарушения.
+        </div>
+      </section>
+
+      <section id="frequent" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">БЫСТРЫЙ ДОСТУП</div>
+            <h3>Самые частые статьи</h3>
+          </div>
+        </div>
+        <p class="section-note">Раздел собран для быстрого доступа во время RP. Нажмите «Открыть», чтобы перейти к статье в полном кодексе.</p>
+        <div class="frequent-toolbar">
+          <button id="resetFrequent" class="copy-btn">Сбросить частые статьи</button>
+          <span class="section-note">Добавляйте статьи в этот раздел кнопкой «В частые» внутри кодекса.</span>
+        </div>
+        <div id="frequentArticles" class="frequent-grid"></div>
+      </section>
+
+      <section id="criminal" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">УГОЛОВНЫЙ КОДЕКС</div>
+            <h3>База статей</h3>
+          </div>
+          <div class="filter-row">
+            <button class="filter active" data-filter="all">Все</button>
+            <button class="filter" data-filter="person">Личность</button>
+            <button class="filter" data-filter="property">Имущество</button>
+            <button class="filter" data-filter="public">Порядок</button>
+            <button class="filter" data-filter="weapons">Оружие</button>
+            <button class="filter" data-filter="drugs">Наркотики</button>
+            <button class="filter" data-filter="justice">Правосудие</button>
+            <button class="filter" data-filter="economic">Экономика</button>
+            <button class="filter" data-filter="military">Военные</button>
+          </div>
+        </div>
+
+        <p class="section-note">
+          Быстрый поиск работает по номеру статьи, названию, наказанию, примечанию и меткам.
+          Горячая клавиша: <span class="kbd">Ctrl</span> + <span class="kbd">F</span> для браузерного поиска.
+        </p>
+
+        <div class="toolbar">
+          <input id="articleSearch" class="search-inline" type="search" placeholder="Поиск внутри кодекса…">
+          <span id="articleCounter" class="counter"></span>
+        </div>
+
+        <div id="favoritesPanel" class="favorites-panel hidden">
+          <h4>Избранные статьи</h4>
+          <div id="favoritesList"></div>
+        </div>
+
+        <div id="articleList"></div>
+        <div id="emptyState" class="empty-state hidden">Ничего не найдено.</div>
+      </section>
+
+      <section id="miranda" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ПАМЯТКА</div>
+            <h3>Права по Миранде</h3>
+          </div>
+        </div>
+
+        <div class="miranda-card">
+          <div class="miranda-badge">ПОЛНАЯ ВЕРСИЯ</div>
+          <blockquote id="mirandaFull">
+            Вы имеете право хранить молчание. Всё, что вы скажете, может быть использовано против вас в суде.
+            Вы имеете право на адвоката. Если вы не можете оплатить услуги адвоката, он будет предоставлен государством.
+            Вы имеете право на один телефонный звонок. Вам понятны ваши права?
+          </blockquote>
+          <button class="copy-btn" data-copy-target="mirandaFull">Скопировать текст</button>
+        </div>
+
+        <div class="miranda-card compact">
+          <div class="miranda-badge">СОКРАЩЁННАЯ ВЕРСИЯ</div>
+          <blockquote id="mirandaShort">
+            Вы имеете право хранить молчание, право на адвоката и на один телефонный звонок.
+            Всё сказанное вами может быть использовано в суде. Вам понятны ваши права?
+          </blockquote>
+          <button class="copy-btn" data-copy-target="mirandaShort">Скопировать текст</button>
+        </div>
+
+        <div class="tip-card">
+          <h4>Примечание</h4>
+          <p>Формулировка должна соответствовать актуальным правилам вашего RP-сервера. Перед публикацией для подразделения проверьте её по действующему процессуальному кодексу проекта.</p>
+        </div>
+      </section>
+
+      <section id="scenarios" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ПРАКТИКА</div>
+            <h3>Пошаговые сценарии</h3>
+          </div>
+        </div>
+
+        <div class="scenario-grid">
+          <article class="scenario-card">
+            <span class="step-number">01</span>
+            <h4>Стандартное задержание</h4>
+            <ol>
+              <li>Обозначить причину задержания.</li>
+              <li>Обеспечить безопасность и контроль лица.</li>
+              <li>Установить личность.</li>
+              <li>Зачитать права по Миранде.</li>
+              <li>Провести предусмотренные правилами действия.</li>
+              <li>Квалифицировать статьи и оформить материалы.</li>
+            </ol>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">02</span>
+            <h4>Установление личности</h4>
+            <ol>
+              <li>Представиться и обозначить законное основание.</li>
+              <li>Предложить добровольно предъявить документы.</li>
+              <li>При отказе действовать по процедуре сервера.</li>
+              <li>Не квалифицировать отказ автоматически как 17.6.</li>
+            </ol>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">03</span>
+            <h4>Обыск и изъятие</h4>
+            <ol>
+              <li>Проверить наличие законного основания.</li>
+              <li>Сообщить о проводимом действии.</li>
+              <li>Зафиксировать найденные предметы.</li>
+              <li>Изъять только то, что разрешено правилами.</li>
+              <li>Отразить изъятие в материалах.</li>
+            </ol>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">04</span>
+            <h4>Вооружённое сопротивление</h4>
+            <ol>
+              <li>Оценить угрозу и обеспечить укрытие.</li>
+              <li>Отдать понятные законные требования.</li>
+              <li>Вызвать подкрепление и медиков при необходимости.</li>
+              <li>Применять силу только в рамках правил сервера.</li>
+              <li>После задержания зафиксировать оружие и обстоятельства.</li>
+            </ol>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">05</span>
+            <h4>Работа по ордеру</h4>
+            <ol>
+              <li>Проверить актуальность и содержание ордера.</li>
+              <li>Установить объект исполнения.</li>
+              <li>Разъяснить основание процессуального действия.</li>
+              <li>Исполнить только то, что указано в ордере.</li>
+              <li>Зафиксировать результат исполнения.</li>
+            </ol>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">06</span>
+            <h4>Передача задержанного</h4>
+            <ol>
+              <li>Передать обстоятельства и квалификацию.</li>
+              <li>Перечислить изъятое имущество.</li>
+              <li>Передать видео- и иные материалы.</li>
+              <li>Указать состояние задержанного.</li>
+              <li>Убедиться, что принимающий сотрудник подтвердил передачу.</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+
+      <section id="tools" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ИНСТРУМЕНТЫ</div>
+            <h3>Быстрые рабочие функции</h3>
+          </div>
+        </div>
+
+        <div class="scenario-grid">
+          <article class="scenario-card">
+            <span class="step-number">A</span>
+            <h4>Конструктор квалификации</h4>
+            <p class="section-note">Введите ключевые слова — поиск автоматически покажет подходящие статьи.</p>
+            <input id="qualificationInput" class="search-inline" placeholder="Например: оружие, побег, похищение">
+            <button id="qualificationRun" class="copy-btn">Найти статьи</button>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">B</span>
+            <h4>Экспорт избранного</h4>
+            <p class="section-note">Скопировать список избранных статей для Discord или отчёта.</p>
+            <button id="exportFavorites" class="copy-btn">Скопировать избранное</button>
+          </article>
+
+          <article class="scenario-card">
+            <span class="step-number">C</span>
+            <h4>Сброс настроек</h4>
+            <p class="section-note">Удалить избранные статьи и вернуть светлую тему.</p>
+            <button id="resetSettings" class="copy-btn">Сбросить настройки</button>
+          </article>
+        </div>
+      </section>
+
+
+
+      <section id="phrases" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">RP-ШАБЛОНЫ</div>
+            <h3>Готовые фразы сотрудника</h3>
+          </div>
+        </div>
+        <p class="section-note">Нажмите «Скопировать», чтобы быстро вставить фразу в игру или Discord. При необходимости адаптируйте формулировки под актуальные правила сервера.</p>
+
+        <div class="phrases-grid">
+          <article class="phrase-card">
+            <div class="phrase-label">ПРЕДСТАВЛЕНИЕ</div>
+            <p id="phraseIntro">Здравствуйте. Я сотрудник государственной организации. Представьтесь и предъявите документы, удостоверяющие вашу личность.</p>
+            <button class="copy-btn" data-copy-target="phraseIntro">Скопировать</button>
+          </article>
+
+          <article class="phrase-card">
+            <div class="phrase-label">ПРИЧИНА ЗАДЕРЖАНИЯ</div>
+            <p id="phraseReason">Вы задержаны по подозрению в совершении правонарушения. Причина задержания будет вам разъяснена в установленном порядке.</p>
+            <button class="copy-btn" data-copy-target="phraseReason">Скопировать</button>
+          </article>
+
+          <article class="phrase-card">
+            <div class="phrase-label">ЗАКОННОЕ ТРЕБОВАНИЕ</div>
+            <p id="phraseDemand">Требую прекратить противоправные действия и выполнить законное требование сотрудника. В случае отказа к вам могут быть применены меры, предусмотренные правилами проекта.</p>
+            <button class="copy-btn" data-copy-target="phraseDemand">Скопировать</button>
+          </article>
+
+          <article class="phrase-card">
+            <div class="phrase-label">ПРЕДУПРЕЖДЕНИЕ О СИЛЕ</div>
+            <p id="phraseForce">Предупреждаю: при продолжении сопротивления или угрозе окружающим может быть применена сила в пределах, установленных правилами сервера.</p>
+            <button class="copy-btn" data-copy-target="phraseForce">Скопировать</button>
+          </article>
+
+          <article class="phrase-card">
+            <div class="phrase-label">ОБЫСК</div>
+            <p id="phraseSearch">На основании действующей процедуры будет проведён обыск. Не препятствуйте процессуальному действию и выполняйте законные требования сотрудника.</p>
+            <button class="copy-btn" data-copy-target="phraseSearch">Скопировать</button>
+          </article>
+
+          <article class="phrase-card">
+            <div class="phrase-label">ПЕРЕДАЧА ЗАДЕРЖАННОГО</div>
+            <p id="phraseTransfer">Передаю задержанного. Основание задержания, квалификация, изъятые предметы и материалы фиксации переданы принимающему сотруднику.</p>
+            <button class="copy-btn" data-copy-target="phraseTransfer">Скопировать</button>
+          </article>
+
+          <article class="phrase-card full">
+            <div class="phrase-label">МИРАНДА</div>
+            <p id="phraseMiranda">Вы имеете право хранить молчание. Всё, что вы скажете, может быть использовано против вас в суде. Вы имеете право на адвоката. Если вы не можете оплатить услуги адвоката, он будет предоставлен государством. Вы имеете право на один телефонный звонок. Вам понятны ваши права?</p>
+            <button class="copy-btn" data-copy-target="phraseMiranda">Скопировать</button>
+          </article>
+        </div>
+      </section>
+
+
+      <section id="glossary" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">СПРАВОЧНИК</div>
+            <h3>Глоссарий</h3>
+          </div>
+        </div>
+        <div class="glossary-grid">
+          <article class="glossary-card"><b>ФЕД.</b><span>Федеральная юрисдикция.</span></article>
+          <article class="glossary-card"><b>РЕГ.</b><span>Региональная юрисдикция.</span></article>
+          <article class="glossary-card"><b>ВОЕН.</b><span>Военная юрисдикция.</span></article>
+          <article class="glossary-card"><b>Судимость</b><span>Дополнительное последствие, отмеченное в санкции статьи.</span></article>
+          <article class="glossary-card"><b>Ордер</b><span>Внутриигровое процессуальное основание на действие, предусмотренное правилами сервера.</span></article>
+          <article class="glossary-card"><b>Изъятие</b><span>Фиксация и передача предметов, имеющих значение для внутриигрового процесса.</span></article>
+        </div>
+      </section>
+
+      <section id="faq" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ЧАСТЫЕ ВОПРОСЫ</div>
+            <h3>FAQ сотрудника</h3>
+          </div>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>Отказ показать документы — это всегда 17.6?</summary>
+            <p>Нет. В справочнике отдельно указано, что сам отказ не всегда образует состав 17.6. Используйте процедуру установления личности.</p>
+          </details>
+          <details>
+            <summary>Можно ли вменить 10.5 без движения автомобиля?</summary>
+            <p>Нет. Для состава требуется фактическое перемещение транспортного средства.</p>
+          </details>
+          <details>
+            <summary>Где хранится избранное и заметки?</summary>
+            <p>Локально в браузере на конкретном устройстве. Они не отправляются в интернет и не синхронизируются между устройствами.</p>
+          </details>
+          <details>
+            <summary>Это реальные юридические нормы?</summary>
+            <p>Нет. Это исключительно внутриигровая RolePlay-документация для Majestic RP.</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="mistakes" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">КОНТРОЛЬ КАЧЕСТВА</div>
+            <h3>Типичные ошибки сотрудников</h3>
+          </div>
+        </div>
+        <div class="mistakes-grid">
+          <article class="mistake-card">
+            <span class="mistake-label">Ошибка 01</span>
+            <h4>Автоматически вменять 17.6 за отказ показать документы</h4>
+            <p>Примечание к статье указывает на процедуру установления личности. Сам отказ не всегда образует состав 17.6.</p>
+          </article>
+          <article class="mistake-card">
+            <span class="mistake-label">Ошибка 02</span>
+            <h4>Вменять угон без перемещения транспорта</h4>
+            <p>По 10.5 транспортное средство должно быть фактически перемещено. Простого проникновения недостаточно.</p>
+          </article>
+          <article class="mistake-card">
+            <span class="mistake-label">Ошибка 03</span>
+            <h4>Забывать фиксировать изъятие</h4>
+            <p>Любое изъятие должно быть отражено в материалах и передано вместе с доказательствами.</p>
+          </article>
+          <article class="mistake-card">
+            <span class="mistake-label">Ошибка 04</span>
+            <h4>Смешивать помеху задержанию и неповиновение</h4>
+            <p>17.9 применяется к помехе задержанию/аресту, а 17.6 — к неповиновению законному требованию.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="changes" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CHANGELOG</div>
+            <h3>История изменений</h3>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <strong>v1.0.1</strong>
+              <p>Поиск с подсветкой, быстрый переход по номеру, история просмотров, новые сценарии, типичные ошибки, полировка интерфейса.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <strong>v1.0 Beta 3</strong>
+              <p>Расширенная база статей, инструменты квалификации, экспорт избранного, горячая клавиша поиска.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <strong>v1.0 Beta 2</strong>
+              <p>Группировка по главам, избранное, копирование статей, внутренний поиск.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <section id="sources" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">АКТУАЛЬНОСТЬ</div>
+            <h3>Источники и проверка</h3>
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <article class="source-card">
+            <h4>Официальная законодательная база Washington</h4>
+            <p>Используется как основной источник для уголовного, процессуального и иного внутриигрового законодательства.</p>
+          </article>
+          <article class="source-card">
+            <h4>Официальный форум Washington — устав USSS</h4>
+            <p>Используется для структуры USSS, групп CAT, DSA и USMS, а также обязанностей подразделений.</p>
+          </article>
+          <article class="source-card warning">
+            <h4>Проверка перед применением</h4>
+            <p>Санкции и формулировки могут обновляться. Перед использованием спорной статьи сверяйте её с актуальной публикацией форума Washington.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">О ПРОЕКТЕ</div>
+            <h3>GOV Handbook</h3>
+          </div>
+        </div>
+        <div class="about-card">
+          <p>GOV Handbook v1.0.1 — стабильная Washington Edition: кодекс, частые статьи, Миранда, сценарии, RP-фразы, заметки, избранное, глоссарий, FAQ и инструменты быстрого поиска.</p>
+          <p>Следующий этап: перенос полного уголовного кодекса и расширение справочных разделов.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <div id="noteModal" class="modal hidden">
+    <div class="modal-backdrop" data-close-note></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">ЛИЧНАЯ ЗАМЕТКА</div>
+          <h3 id="noteModalTitle">Статья</h3>
+        </div>
+        <button class="modal-close" data-close-note>×</button>
+      </div>
+      <textarea id="noteText" placeholder="Введите свою заметку к статье…"></textarea>
+      <div class="modal-actions">
+        <button id="deleteNote" class="secondary-action">Удалить</button>
+        <button id="saveNote" class="copy-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Скопировано</div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

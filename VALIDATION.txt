@@ -1,0 +1,6 @@
+ПРОВЕРКА СБОРКИ v1.0.1
+index.html: OK
+styles.css: OK
+app.js: OK
+data.js: OK
+JavaScript syntax: OK
