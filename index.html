@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GOV Handbook — Beta 1</title>
+  <title>GOV Handbook v2.3 — Clear Home</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,21 +23,14 @@
 
       <nav class="nav">
         <button class="nav-item active" data-section="home">Главная</button>
+        <button class="nav-item" data-section="fieldguide">Шпаргалка</button>
+        <button class="nav-item" data-section="situations">Что делать?</button>
         <button class="nav-item" data-section="government">Government</button>
-        <button class="nav-item" data-section="immunity">Неприкосновенность</button>
-        <button class="nav-item" data-section="pgo">Памятка ПГО</button>
-        <button class="nav-item" data-section="frequent">Частые статьи</button>
-        <button class="nav-item" data-section="criminal">Уголовный кодекс</button>
-        <button class="nav-item" data-section="miranda">Права по Миранде</button>
-        <button class="nav-item" data-section="scenarios">Пошаговые сценарии</button>
-        <button class="nav-item" data-section="phrases">RP-фразы</button>
-        <button class="nav-item" data-section="glossary">Глоссарий</button>
-        <button class="nav-item" data-section="faq">FAQ</button>
-        <button class="nav-item" data-section="tools">Инструменты</button>
-        <button class="nav-item" data-section="mistakes">Типичные ошибки</button>
-        <button class="nav-item" data-section="changes">История изменений</button>
-        <button class="nav-item" data-section="sources">Источники</button>
-        <button class="nav-item" data-section="about">О проекте</button>
+        <button class="nav-item" data-section="pgo">Правила ПГО</button>
+        <button class="nav-item" data-section="academy">Обучение по ролям</button>
+        <button class="nav-item" data-section="usms-notices">Шаблоны USMS</button>
+        <button class="nav-item" data-section="criminal">Кодекс</button>
+        <button class="nav-item" data-section="frequent">Быстрые статьи</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -53,106 +46,509 @@
           <h2 id="pageTitle">Главная</h2>
           <p id="pageSubtitle">Портал сотрудников государственных организаций • Washington</p>
         </div>
-        <div class="version">v1.0.1</div>
+        <div class="version">v2.3</div>
       </header>
 
       <section id="home" class="page-section active">
-        <div class="hero-card">
-          <div class="eyebrow">ROLEPLAY DOCUMENTATION</div>
-          <h3>Единая база знаний для государственных организаций</h3>
-          <p>Быстрый поиск статей, готовый текст Миранды и пошаговые памятки для игровых процессуальных действий.</p>
-          <div class="hero-actions">
-            <button class="primary" data-jump="criminal">Открыть уголовный кодекс</button>
-            <button class="secondary" data-jump="miranda">Открыть Миранду</button>
+        <div class="home-hero-compact">
+          <div><div class="eyebrow">GOV HANDBOOK • WASHINGTON</div><h3>Что вам нужно?</h3><p>Выберите задачу или найдите статью, правило, ситуацию либо должность.</p></div>
+          <div class="home-hero-actions">
+            <button class="primary" data-jump="situations">Разобрать ситуацию</button>
+            <button class="secondary" data-jump="academy">Изучить роль</button>
+            <button class="secondary" data-jump="criminal">Найти норму</button>
           </div>
         </div>
 
-
-        <div class="home-dashboard">
-          <section class="dashboard-card accent-card">
-            <div class="dashboard-kicker">БЫСТРЫЙ СТАРТ</div>
-            <h4>Открой нужный раздел за секунду</h4>
-            <div class="dashboard-actions">
-              <button data-jump="frequent">Частые статьи</button>
-              <button data-jump="miranda">Миранда</button>
-              <button data-jump="scenarios">Сценарии</button>
-              <button data-jump="phrases">RP-фразы</button>
-            </div>
-          </section>
-
-          <section class="dashboard-card">
-            <div class="dashboard-kicker">СЕЙЧАС ПОД РУКОЙ</div>
-            <h4>Мои избранные</h4>
-            <div id="homeFavorites" class="home-favorites"></div>
-          </section>
-
-          <section class="dashboard-card">
-            <div class="dashboard-kicker">ИСТОРИЯ</div>
-            <h4>Недавно открытые статьи</h4>
-            <div id="homeRecent" class="home-favorites"></div>
-          </section>
-
-          <section class="dashboard-card">
-            <div class="dashboard-kicker">ВЕРСИЯ</div>
-            <h4>GOV Handbook v1.0.1</h4>
-            <p>Полный рабочий портал: статьи, Миранда, сценарии, RP-фразы и инструменты.</p>
-          </section>
+        <div class="home-search-box">
+          <input id="homeUniversalSearch" class="search-inline" type="search" placeholder="Например: 17.6, обыск транспорта, адвокат, USMS…">
+          <div id="homeSearchResults" class="home-search-results hidden"></div>
         </div>
 
-        <div class="disclaimer">
-          <strong>Важно:</strong> данный handbook создан исключительно для RolePlay-проекта Majestic RP.
-          Все статьи, процедуры и формулировки являются частью игрового процесса и не относятся к реальному законодательству.
+        <div class="home-paths">
+          <button class="home-path-card situation" data-jump="situations"><span>ПРОИЗОШЛО СОБЫТИЕ</span><h4>Что делать?</h4><p>Ограбление, задержание, обыск, побег, оружие.</p><b>Выбрать ситуацию →</b></button>
+          <button class="home-path-card academy" data-jump="academy"><span>Я НОВИЧОК</span><h4>Обучение по роли</h4><p>USSS, USMS, адвокат, прокурор и судья.</p><b>Выбрать роль →</b></button>
+          <button class="home-path-card law" data-jump="criminal"><span>НУЖЕН ДОКУМЕНТ</span><h4>Законы и ПГО</h4><p>УК, процедуры, серверные правила и связанные нормы.</p><b>Найти норму →</b></button>
         </div>
 
-
-        <div class="dashboard-grid">
-          <section class="mini-panel">
-            <div class="mini-panel-head">
-              <h4>Быстрый переход по статье</h4>
-              <span>Введите номер</span>
-            </div>
-            <div class="quick-jump-row">
-              <input id="quickJumpInput" class="search-inline" placeholder="Например: 17.6">
-              <button id="quickJumpButton" class="copy-btn">Открыть</button>
-            </div>
-          </section>
-
-          <section class="mini-panel">
-            <div class="mini-panel-head">
-              <h4>Недавно открытые</h4>
-              <span>Последние статьи</span>
-            </div>
-            <div id="recentArticles" class="recent-list"></div>
-          </section>
+        <div class="home-work-grid">
+          <section class="home-work-card"><div class="home-work-head"><div><span>ПРОДОЛЖИТЬ</span><h4>Недавно открытые</h4></div><button data-jump="criminal">Все статьи</button></div><div id="homeRecent" class="home-favorites"></div></section>
+          <section class="home-work-card"><div class="home-work-head"><div><span>СОХРАНЕНО</span><h4>Избранные статьи</h4></div><button data-jump="frequent">Настроить</button></div><div id="homeFavorites" class="home-favorites"></div></section>
         </div>
 
-        <div class="cards-grid">
-          <button class="feature-card" data-jump="frequent">
-            <span class="feature-kicker">БЫСТРЫЙ ДОСТУП</span>
-            <h4>Частые статьи</h4>
-            <p>Самые используемые статьи — в одном разделе.</p>
-          </button>
-          <button class="feature-card" data-jump="criminal">
-            <span class="feature-kicker">КОДЕКС</span>
-            <h4>Уголовный кодекс</h4>
-            <p>Поиск по номеру, названию и ключевым словам.</p>
-          </button>
-          <button class="feature-card" data-jump="miranda">
-            <span class="feature-kicker">ПАМЯТКА</span>
-            <h4>Права по Миранде</h4>
-            <p>Полная и сокращённая версии с копированием.</p>
-          </button>
-          <button class="feature-card" data-jump="scenarios">
-            <span class="feature-kicker">АЛГОРИТМЫ</span>
-            <h4>Пошаговые сценарии</h4>
-            <p>Задержание, обыск, установление личности.</p>
-          </button>
+        <div class="home-quick-actions">
+          <span>Быстрые действия</span>
+          <button data-jump="miranda">Скопировать Миранду</button>
+          <button data-jump="fieldguide">Шпаргалка</button>
+          <button data-jump="usms-notices">Шаблоны USMS</button>
+          <button data-jump="frequent">Частые статьи</button>
+          <button data-jump="pgo">Правила ПГО</button>
         </div>
+
+        <div class="home-disclaimer"><strong>RolePlay-проект:</strong> материалы относятся только к Majestic RP Washington и не являются реальным законодательством.</div>
       </section>
 
 
 
       
+
+
+      <section id="fieldguide" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">FIELD GUIDE 2.0</div>
+            <h3>Шпаргалка сотрудника</h3>
+          </div>
+          <button id="emergencyMode" class="copy-btn">Экстренный режим</button>
+        </div>
+
+        <div class="guide-quickbar">
+          <button data-guide-open="guide-detention">Задержание</button>
+          <button data-guide-open="guide-search">Обыск</button>
+          <button data-guide-open="guide-lawyer">Адвокат</button>
+          <button data-guide-open="guide-prosecutor">Прокурор</button>
+          <button data-guide-open="guide-order">Ордер</button>
+          <button data-guide-open="guide-force">Сила</button>
+          <button data-guide-open="guide-miranda">Миранда</button>
+        </div>
+
+        <div class="guide-stack">
+          <details id="guide-detention" class="guide-card" open>
+            <summary>Задержание</summary>
+            <div class="guide-body">
+              <div class="guide-steps">
+                <span>1. Основание</span><span>2. Представиться</span><span>3. Причина</span>
+                <span>4. Наручники</span><span>5. Обыск</span><span>6. Миранда</span>
+                <span>7. Доставка</span><span>8. Реализация прав</span>
+              </div>
+              <div class="guide-columns">
+                <article><h4>Не забудь</h4><ul><li>Задержание длится не более 1 часа и не является наказанием.</li><li>Зафиксировать основание, проверить документы и статус лица.</li><li>Разграничить 17.6, 17.9 и 17.10.</li></ul></article>
+                <article class="warn"><h4>Частые ошибки</h4><ul><li>Нет понятного законного требования.</li><li>Миранда не зачитана.</li><li>Статьи добавлены автоматически без фактов.</li></ul></article>
+              </div>
+            </div>
+          </details>
+
+          <details id="guide-search" class="guide-card">
+            <summary>Обыск и изъятие</summary>
+            <div class="guide-body">
+              <div class="guide-steps">
+                <span>1. Основание</span><span>2. Объявить действие</span><span>3. Фиксация</span>
+                <span>4. Обыск</span><span>5. Изъятие</span><span>6. Оформление</span>
+              </div>
+              <div class="guide-columns">
+                <article><h4>Проверь</h4><ul><li>Различай осмотр, досмотр, личный и транспортный обыск.</li><li>Транспорт без ордера: УК, ориентировка, ограбление рядом, нападение на Форт/Кайо.</li><li>Жилище: судебный акт либо законный неотложный случай.</li><li>Зафиксированы ли найденные предметы.</li></ul></article>
+                <article class="warn"><h4>Нельзя</h4><ul><li>Проводить обыск «на всякий случай».</li><li>Изымать предметы без связи с основанием.</li><li>Выходить за пределы ордера.</li></ul></article>
+              </div>
+            </div>
+          </details>
+
+          <details id="guide-lawyer" class="guide-card">
+            <summary>Запрос адвоката</summary>
+            <div class="guide-body">
+              <div class="guide-steps">
+                <span>1. Зафиксировать запрос</span><span>2. Вызвать адвоката</span>
+                <span>3. До 3 минут на ответ</span><span>4. После принятия — 7 минут на приезд</span><span>5. Консультация до 2 минут</span>
+              </div>
+              <div class="guide-columns">
+                <article><h4>Порядок</h4><ul><li>Вызов через предусмотренный канал.</li><li>До 3 минут на принятие вызова.</li><li>После принятия — ещё 7 минут на прибытие.</li><li>Конфиденциальная консультация — до 2 минут.</li><li>При заявлении о нарушении адвокат вправе вызвать прокурора.</li></ul></article>
+                <article class="warn"><h4>Адвокат не делает</h4><ul><li>Не срывает законную процедуру.</li><li>Не требует полномочий, которых нет в законе.</li><li>Не разглашает защищённую информацию.</li></ul></article>
+              </div>
+            </div>
+          </details>
+
+          <details id="guide-prosecutor" class="guide-card">
+            <summary>Вызов прокурора</summary>
+            <div class="guide-body">
+              <div class="guide-steps">
+                <span>1. Определить вопрос</span><span>2. Кратко доложить</span>
+                <span>3. Ответ до 5 минут</span><span>4. Прибытие до 15 минут</span>
+              </div>
+              <div class="guide-columns">
+                <article><h4>Когда нужен</h4><ul><li>Спорное процессуальное решение.</li><li>Передача материалов расследования.</li><li>Проверка законности действий.</li><li>Постановление в пределах компетенции.</li></ul></article>
+                <article class="warn"><h4>Ошибка</h4><ul><li>Ждать от прокурора решения без материалов.</li><li>Подменять прокурором суд.</li><li>Давить на итоговую оценку.</li></ul></article>
+              </div>
+            </div>
+          </details>
+
+          <details id="guide-order" class="guide-card">
+            <summary>Получение и исполнение ордера</summary>
+            <div class="guide-body">
+              <div class="guide-steps">
+                <span>1. Проверить орган</span><span>2. Объект</span><span>3. Срок</span>
+                <span>4. Пределы</span><span>5. Исполнение</span><span>6. Отчёт</span>
+              </div>
+              <div class="guide-columns">
+                <article><h4>Обязательно</h4><ul><li>Работать только в пределах ордера.</li><li>Фиксировать исполнение.</li><li>Покинуть режимный объект после завершения задачи, если нет иных оснований.</li></ul></article>
+                <article class="warn"><h4>Нельзя</h4><ul><li>Использовать просроченный или чужой ордер.</li><li>Расширять перечень действий самостоятельно.</li></ul></article>
+              </div>
+            </div>
+          </details>
+
+          <details id="guide-force" class="guide-card">
+            <summary>Применение силы</summary>
+            <div class="guide-body">
+              <div class="force-line">
+                <span>Присутствие</span><b>→</b><span>Требование</span><b>→</b><span>Физическая сила</span><b>→</b><span>Спецсредства</span><b>→</b><span>Летальная сила</span>
+              </div>
+              <p class="section-note">Переход должен быть необходимым и соразмерным. При преступлении на глазах допустим переход сразу к спецсредствам; при непосредственной угрозе жизни или вооружённом сопротивлении — к оружию.</p>
+            </div>
+          </details>
+
+          <details id="guide-miranda" class="guide-card">
+            <summary>Миранда</summary>
+            <div class="guide-body">
+              <p id="fieldMiranda">Вы имеете право хранить молчание. Всё, что Вы скажете, может и будет использовано против Вас. Вы имеете право на один телефонный звонок и адвоката. Если у Вас нет средств на оплату адвоката, он будет предоставлен Вам государством бесплатно. Вы понимаете свои права?</p>
+              <button class="copy-btn" data-copy-target="fieldMiranda">Скопировать Миранду</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+
+
+
+      <section id="situations" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">SITUATION NAVIGATOR 2.0</div>
+            <h3>Что делать?</h3>
+          </div>
+        </div>
+
+        <div class="situation-search-row">
+          <input id="situationSearch" class="search-inline" placeholder="Например: ограбление, похищение, проверка, ордер, маска…">
+        </div>
+
+        <div id="situationGrid" class="situation-grid">
+          <article class="situation-card" data-situation-tags="похищение kidnapping заложник fib usms" data-extra-codes="6.1 Ч1|6.2 Ч1|6.5|10.4|17.1|17.2|17.9">
+            <div class="situation-head">
+              <span class="situation-type">ТЯЖКОЕ ПРЕСТУПЛЕНИЕ</span>
+              <h4>Похищение человека</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Ведёт: FIB</span>
+              <span class="assist">Пресечение и периметр: LSPD / LSCSD; FIB — федеральное расследование</span>
+              <span class="limited">При отсутствии директора FIB региональные органы могут вести 7.1 самостоятельно</span>
+            </div>
+            <ol>
+              <li>Установить угрозу, место и количество участников.</li>
+              <li>Передать информацию FIB; если директор FIB отсутствует — действовать региональной структурой по специальному исключению.</li>
+              <li>Обеспечить периметр и безопасность потерпевшего.</li>
+              <li>Зафиксировать свидетелей, транспорт и доказательства.</li>
+              <li>USSS/USMS подключаются при угрозе охраняемым лицам/объектам, ордере, федеральном розыске, судебном или прокурорском акте.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="7.1"><b>7.1</b><span>Похищение человека — незаконное лишение свободы и удержание.</span></button>
+              <button data-open-code="17.10"><b>17.10</b><span>Побег — если задержанный попытался скрыться после задержания.</span></button>
+              <button data-open-code="12.8 Ч1"><b>12.8 Ч1</b><span>Незаконное оружие — если оно обнаружено и отсутствует разрешение.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="ограбление robbery магазин банк оружие fib lspd bcso">
+            <div class="situation-head">
+              <span class="situation-type">ОГРАБЛЕНИЕ</span>
+              <h4>Ограбление магазина или банка</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Участвуют: LSPD / LSCSD / FIB / SANG / USSS</span>
+              <span class="assist">Выезд: минимум 2 сотрудника на фракционном транспорте</span>
+              <span class="limited">USSS вправе выезжать на ограбления банков и бизнесов в городе</span>
+            </div>
+            <ol>
+              <li>Оценить количество преступников, оружие и наличие заложников.</li>
+              <li>Выехать группой минимум из двух сотрудников на фракционном транспорте; распределить переговоры, периметр и преследование.</li>
+              <li>Не начинать необоснованный штурм.</li>
+              <li>Фиксировать требования, переговоры и маршруты отхода.</li>
+              <li>После события осмотреть близлежащие автомобили по специальному основанию, оформить изъятия и не оставлять найденное себе.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="10.4"><b>10.4</b><span>Разбой</span></button>
+              <button data-open-code="17.1"><b>17.1</b><span>Посягательство на жизнь сотрудника</span></button>
+              <button data-open-code="17.2"><b>17.2</b><span>Насилие или угроза в отношении сотрудника</span></button>
+              <details class="situation-more">
+                <summary>Ещё 7 статей по обстоятельствам</summary>
+                <div class="mini-laws compact-laws">
+                  <button data-open-code="17.6"><b>17.6</b><span>Неповиновение законному требованию</span></button>
+                  <button data-open-code="17.9"><b>17.9</b><span>Помеха задержанию или аресту</span></button>
+                  <button data-open-code="17.10"><b>17.10</b><span>Побег при задержании</span></button>
+                  <button data-open-code="12.8 Ч1"><b>12.8 Ч1</b><span>Незаконное хранение или ношение оружия</span></button>
+                  <button data-open-code="12.8.1"><b>12.8.1</b><span>Государственное оружие или спецсредства у гражданского</span></button>
+                  <button data-open-code="7.1"><b>7.1</b><span>Похищение человека</span></button>
+                  <button data-open-code="10.5"><b>10.5</b><span>Неправомерное завладение транспортом</span></button>
+                </div>
+              </details>
+            </div>
+            <div class="situation-law-warning">Статьи применяются только при подтверждённом отдельном составе.</div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="проверка гражданина документы идентификация 17.6" data-extra-codes="17.8|16.4|15.1.1 Ч1">
+            <div class="situation-head">
+              <span class="situation-type">ПРОВЕРКА</span>
+              <h4>Проверка гражданина и документов</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Основной: уполномоченный сотрудник</span>
+              <span class="limited">Требование должно быть законным и относиться к компетенции</span>
+            </div>
+            <ol>
+              <li>Представиться и сообщить основание обращения.</li>
+              <li>Сформулировать требование понятно и конкретно.</li>
+              <li>Проверить личность, статус и документы.</li>
+              <li>При отказе показать документы или снять маску дать 5 секунд и запустить процедуру установления личности: наручники, объяснение, базы/документы, сопоставление лица, личный обыск.</li>
+              <li>Не применять 17.6 за сам отказ раскрыть личность; госслужащий вправе предъявить удостоверение вместо снятия маски.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.6"><b>17.6</b><span>Неповиновение — если законное требование сознательно не выполнено.</span></button>
+              <button data-open-code="15.1"><b>15.1</b><span>Превышение полномочий — если сотрудник вышел за пределы своей компетенции.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="автомобиль остановка проверка документов обыск машины" data-extra-codes="13.2|10.6 Ч1|17.6|17.10|17.8">
+            <div class="situation-head">
+              <span class="situation-type">ТРАНСПОРТ</span>
+              <h4>Остановка и проверка автомобиля</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Основной: дорожные и правоохранительные структуры</span>
+              <span class="limited">Обыск — только при отдельном законном основании</span>
+            </div>
+            <ol>
+              <li>Сообщить причину остановки.</li>
+              <li>Запросить документы водителя и транспортного средства.</li>
+              <li>Проверить владельца и статус автомобиля.</li>
+              <li>Обыск без ордера допустим при нарушении УК, ориентировке, ограблении банка/бизнеса/дома рядом с местом события, нападении на Форт-Занкудо или Кайо-Перико.</li>
+              <li>Фиксировать обнаруженные предметы и изъятие.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="10.5"><b>10.5</b><span>Неправомерное завладение транспортом — если автомобиль фактически перемещён без права.</span></button>
+              <button data-open-code="12.8 Ч1"><b>12.8 Ч1</b><span>Незаконное оружие — если найдено оружие и нет лицензии.</span></button>
+              <button data-open-code="13.3"><b>13.3</b><span>Наркотики в особо крупном размере — при подтверждённом количестве свыше порога.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="побег задержание преследование 17.10" data-extra-codes="17.1|17.2|10.6 Ч3|12.8 Ч1">
+            <div class="situation-head">
+              <span class="situation-type">ПОБЕГ</span>
+              <h4>Подозреваемый убегает</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Задерживает: орган, ведущий процессуальное действие</span>
+              <span class="limited">USMS — самостоятельно при ордере, розыске или исполнении акта</span>
+            </div>
+            <ol>
+              <li>Разграничить: до фактического задержания бегство само по себе не образует 17.10; статья применяется при побеге во время задержания, ареста или процессуального принуждения.</li>
+              <li>Дать понятное требование остановиться.</li>
+              <li>Сообщить направление движения и запросить поддержку.</li>
+              <li>Применять силу только соразмерно угрозе.</li>
+              <li>После задержания зафиксировать обстоятельства побега.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.10"><b>17.10</b><span>Побег — попытка скрыться после возникновения статуса задержанного.</span></button>
+              <button data-open-code="17.6"><b>17.6</b><span>Неповиновение — игнорирование законного требования остановиться.</span></button>
+              <button data-open-code="17.9"><b>17.9</b><span>Помеха задержанию — если третье лицо препятствует процессу.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="адвокат право задержанный звонок" data-extra-codes="9.3|16.1|16.13|15.1">
+            <div class="situation-head">
+              <span class="situation-type">ПРАВА ЗАДЕРЖАННОГО</span>
+              <h4>Задержанный просит адвоката</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Организует: сотрудник, ведущий задержание</span>
+              <span class="assist">Оказывает помощь: Bar Association</span>
+            </div>
+            <ol>
+              <li>Зафиксировать запрос.</li>
+              <li>Вызвать доступного адвоката.</li>
+              <li>Остановить течение процессуального часа: до 3 минут ждать принятия вызова; после принятия — ещё до 7 минут ждать прибытия.</li>
+              <li>Обеспечить конфиденциальный разговор до 2 минут и один телефонный звонок.</li>
+              <li>Если адвокат заявляет о нарушении — запросить прокурора: ответ до 5 минут, после положительного ответа прибытие до 15 минут.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.9"><b>17.9</b><span>Не применяется к обычной юридической защите; только к реальной помехе задержанию.</span></button>
+              <button data-open-code="16.11"><b>16.11</b><span>Сокрытие доказательств — если доказательства намеренно уничтожаются или скрываются.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="government" data-open-role="lawyer">Открыть памятку адвоката</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="прокурор прокуратура doj материалы постановление" data-extra-codes="16.1|16.2|16.10|16.13">
+            <div class="situation-head">
+              <span class="situation-type">ПРОКУРАТУРА</span>
+              <h4>Нужен прокурор</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Решение: DOJ / прокуратура</span>
+              <span class="assist">Материалы готовит: орган расследования</span>
+            </div>
+            <ol>
+              <li>Сформулировать конкретный процессуальный вопрос.</li>
+              <li>Подготовить краткое описание и доказательства.</li>
+              <li>Сохранить материалы без изменений.</li>
+              <li>Передать факты и дождаться решения в пределах компетенции прокурора.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="15.1"><b>15.1</b><span>Превышение полномочий — при явном выходе должностного лица за пределы компетенции.</span></button>
+              <button data-open-code="16.11"><b>16.11</b><span>Сокрытие доказательств — при умышленном уничтожении или утаивании улик.</span></button>
+              <button data-open-code="14.3"><b>14.3</b><span>Разглашение гостайны — при передаче защищённых сведений лицам без допуска.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="government" data-open-role="prosecutor">Открыть памятку прокурора</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="обыск дом помещение ордер проникновение" data-extra-codes="10.7|16.4|17.6|17.9|16.10">
+            <div class="situation-head">
+              <span class="situation-type">ОРДЕР / ОБЫСК</span>
+              <h4>Нужно войти в помещение</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Исполняет: орган, указанный в ордере</span>
+              <span class="limited">USMS: вправе исполнить судебный/прокурорский акт</span>
+            </div>
+            <ol>
+              <li>Определить законное основание.</li>
+              <li>Проверить орган, объект, срок и пределы ордера.</li>
+              <li>Объявить действие, если это не противоречит задаче.</li>
+              <li>Фиксировать вход, обыск и изъятие.</li>
+              <li>Покинуть объект после выполнения задачи без иных оснований.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="15.1"><b>15.1</b><span>Превышение полномочий — если действия вышли за пределы ордера или компетенции.</span></button>
+              <button data-open-code="16.11"><b>16.11</b><span>Сокрытие доказательств — если на объекте намеренно уничтожаются улики.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="fieldguide" data-open-guide="guide-order">Открыть алгоритм ордера</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="usms маска личность удостоверение жетон гостайна" data-extra-codes="14.3.2|17.6|15.1|16.4">
+            <div class="situation-head">
+              <span class="situation-type">USMS / ГОСТАЙНА</span>
+              <h4>Требуют снять маску с USMS</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Идентификация: жетон / нашивка / удостоверение</span>
+              <span class="limited">Полные данные: только уполномоченным лицам</span>
+            </div>
+            <ol>
+              <li>Подтвердить полномочия предусмотренным идентификатором.</li>
+              <li>При защищённых данных предупредить о режиме гостайны.</li>
+              <li>Не раскрывать персональные данные лицам без допуска.</li>
+              <li>Полный запрос направить руководству или уполномоченному органу.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="14.3"><b>14.3</b><span>Разглашение гостайны — публичное раскрытие защищённых данных.</span></button>
+              <button data-open-code="14.3.1"><b>14.3.1</b><span>Незаконное получение гостайны — кража, обман, шантаж или иной незаконный способ.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="government" data-open-role="usms">Открыть USMS</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="неприкосновенность губернатор судья прокурор особый статус" data-extra-codes="16.4|15.1.1 Ч1|17.6">
+            <div class="situation-head">
+              <span class="situation-type">ОСОБЫЙ СТАТУС</span>
+              <h4>Лицо имеет неприкосновенность</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Проверяет: прокуратура / уполномоченное руководство</span>
+              <span class="limited">Сотрудник на месте не должен действовать самовольно</span>
+            </div>
+            <ol>
+              <li>Установить точную должность.</li>
+              <li>Проверить действующий перечень неприкосновенных лиц.</li>
+              <li>Определить специальный порядок.</li>
+              <li>Связаться с прокуратурой или уполномоченным руководителем.</li>
+              <li>Не предпринимать необратимых действий без законного основания.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="15.1"><b>15.1</b><span>Превышение полномочий — если сотрудник нарушил специальный порядок и вышел за компетенцию.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="government" data-open-role="immunity">Открыть особый статус</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="федеральный розыск usms задержание ордер" data-extra-codes="17.9|17.1|17.2|12.8.1|16.10">
+            <div class="situation-head">
+              <span class="situation-type">ФЕДЕРАЛЬНЫЙ РОЗЫСК</span>
+              <h4>Исполнение федерального розыска</h4>
+            </div>
+            <div class="competence-strip">
+              <span class="lead">Основной: USMS</span>
+              <span class="assist">Содействие: FIB / LSPD / LSCSD</span>
+              <span class="limited">USMS вправе довести исполнение ордера до заключения</span>
+            </div>
+            <ol>
+              <li>Проверить актуальность розыска и основания.</li>
+              <li>Установить личность и местонахождение.</li>
+              <li>Оценить риск и запросить поддержку.</li>
+              <li>Произвести задержание и обыск по процедуре.</li>
+              <li>Если действует ордер — исполнить его в полном объёме, включая помещение под стражу.</li>
+              <li>Уведомить инициатора и оформить результат.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.6"><b>17.6</b><span>Неповиновение — отказ выполнить законное требование при задержании.</span></button>
+              <button data-open-code="17.10"><b>17.10</b><span>Побег — попытка скрыться после начала законного задержания.</span></button>
+              <button data-open-code="12.8 Ч1"><b>12.8 Ч1</b><span>Незаконное оружие — если обнаружено при законном обыске без разрешения.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="government" data-open-role="usms">Открыть полномочия USMS</button>
+          </article>
+
+          <article class="situation-card" data-situation-tags="госслужащий задержание прокурор увольнение кпз" data-extra-codes="15.1.1 Ч1|15.1.1 Ч2|15.6 Ч1|16.10">
+            <div class="situation-head"><span class="situation-type">ОСОБАЯ ПРОЦЕДУРА</span><h4>Задержан государственный служащий</h4></div>
+            <div class="competence-strip">
+              <span class="lead">Решение о виновности: прокурор</span>
+              <span class="assist">Уведомить руководство задержанного</span>
+              <span class="limited">Без решения прокурора помещение в КПЗ запрещено, кроме прямо установленных исключений</span>
+            </div>
+            <ol>
+              <li>Установить должность, зафиксировать основания и уведомить руководство организации и прокуратуру.</li>
+              <li>Предоставить материалы и ожидать ответ прокурора до 15 минут; при отсутствии ответа освободить лицо и передать доказательства.</li>
+              <li>Для лишения свободы требуется решение прокурора и прекращение службы; штраф сам по себе увольнения не требует.</li>
+              <li>Исключения: действующий ордер, решение суда и иные прямо названные законом специальные случаи.</li>
+              <li>Не задерживать госслужащего во время проводимого им задержания без решения прокурора.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="15.1"><b>15.1</b><span>Превышение полномочий — действия должностного лица за пределами полномочий с существенными последствиями.</span></button>
+              <button data-open-code="16.4"><b>16.4</b><span>Заведомо незаконное задержание или содержание под стражей.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="сила стадии тазер оружие сопротивление нападение" data-extra-codes="17.6|17.9|17.10|15.1|16.4">
+            <div class="situation-head"><span class="situation-type">ПРИМЕНЕНИЕ СИЛЫ</span><h4>Сопротивление или непосредственная угроза</h4></div>
+            <div class="competence-strip">
+              <span class="lead">Применяет: уполномоченный силовой сотрудник</span>
+              <span class="limited">Только необходимая и соразмерная мера</span>
+            </div>
+            <ol>
+              <li>Обычная лестница: присутствие → законное требование → физическая сила → спецсредства → оружие.</li>
+              <li>При преступлении, совершённом на глазах, допускается переход сразу к спецсредствам.</li>
+              <li>При непосредственной угрозе жизни, вооружённом сопротивлении или опасной вооружённой группе допускается оружие.</li>
+              <li>После устранения угрозы прекратить силу, оказать помощь и зафиксировать основание.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.2"><b>17.2</b><span>Насилие или угроза насилием в отношении сотрудника при исполнении.</span></button>
+              <button data-open-code="17.1"><b>17.1</b><span>Посягательство на жизнь сотрудника правоохранительного органа или военнослужащего.</span></button>
+            </div>
+          </article>
+
+          <article class="situation-card" data-situation-tags="задержание час миранда арест кпз процедура" data-extra-codes="17.6|17.9|10.7|15.1|16.10">
+            <div class="situation-head"><span class="situation-type">ПРОЦЕДУРА</span><h4>Задержание и арест</h4></div>
+            <div class="competence-strip">
+              <span class="lead">Задержание: до 1 часа, не наказание</span>
+              <span class="limited">Арест: наказание и помещение в КПЗ</span>
+            </div>
+            <ol>
+              <li>Наручники, идентификация, первичный обыск, сообщение статей и разъяснение Миранды.</li>
+              <li>Реализовать право на адвоката и один звонок; вести непрерывную аудио- и видеофиксацию.</li>
+              <li>Перед арестом провести вторичный обыск, изъять нелегальное, выставить розыск и объяснить причину.</li>
+              <li>Не затягивать процедуру и не назначать максимальную санкцию без обоснования.</li>
+            </ol>
+            <div class="mini-laws">
+              <button data-open-code="17.10"><b>17.10</b><span>Побег возможен только в рамках уже начавшегося задержания, ареста или принуждения.</span></button>
+              <button data-open-code="16.4"><b>16.4</b><span>Заведомо незаконное задержание, заключение или содержание под стражей.</span></button>
+            </div>
+            <button class="situation-jump" data-jump="miranda">Открыть Миранду</button>
+          </article>
+        </div>
+
+        <div id="situationEmpty" class="empty-state hidden">Подходящая ситуация не найдена.</div>
+      </section>
+
+
       <section id="government" class="page-section">
         <div class="section-head">
           <div>
@@ -180,7 +576,7 @@
           <article class="gov-card featured">
             <div class="gov-card-kicker">UNITED STATES SECRET SERVICE</div>
             <h4>USSS — основная служба</h4>
-            <p>Секретная служба объединяет охранные, тактические и исполнительные направления. В открытом уставе Washington перечислены тактические группы CAT, DSA и USMS.</p>
+            <p>USSS охраняет первых лиц и государственные объекты, пресекает угрозы, расследует преступления в сфере экономики, государственной власти и должностные нарушения в пределах закона. CAT, DSA и USMS действуют как её внутренние подразделения.</p>
             <div class="legal-source">Основание: Устав United States Secret Service [USSS], Washington.</div>
           </article>
 
@@ -201,7 +597,7 @@
           <article class="gov-card">
             <div class="gov-card-kicker">UNITED STATES MARSHALS SERVICE</div>
             <h4>USMS — исполнение решений</h4>
-            <p>В обязанности агентов USMS входят исполнение судебных постановлений, уведомление и передача прокурорских постановлений, а также необходимые действия по их исполнению.</p>
+            <p>USMS исполняет ордера, судебные и прокурорские акты, ведёт федеральный розыск, доставляет лиц и обеспечивает безопасность суда. Федеральный розыск приравнен к ордеру на арест.</p>
             <div class="legal-source">Основание: Устав United States Secret Service [USSS], Washington.</div>
           </article>
         </div>
@@ -211,7 +607,7 @@
             <span>Подразделение</span><span>Основной ориентир</span><span>Когда обращаться</span>
           </div>
           <div class="responsibility-row">
-            <strong>USSS</strong><span>Охрана, координация, специальные задачи</span><span>Общие вопросы службы и охраны</span>
+            <strong>USSS</strong><span>Госохрана, угрозы, финансовые и должностные преступления</span><span>Охраняемые лица/объекты, банки и бизнесы, специальные проверки</span>
           </div>
           <div class="responsibility-row">
             <strong>CAT</strong><span>Тактическое усиление</span><span>Ситуации повышенного риска</span>
@@ -220,10 +616,257 @@
             <strong>DSA</strong><span>Внутренняя организация и охранные задачи</span><span>Рекрутинг, организация службы, задачи группы</span>
           </div>
           <div class="responsibility-row">
-            <strong>USMS</strong><span>Исполнение судебных и прокурорских актов</span><span>Постановления, уведомления, исполнение решений</span>
+            <strong>USMS</strong><span>Ордера, федеральный розыск, суд и доставка</span><span>Исполнение актов и помещение под стражу по законному основанию</span>
           </div>
         </div>
-      </section>
+      
+        <div class="gov-encyclopedia">
+          <details class="gov-accordion" open>
+            <summary>United States Secret Service (USSS)</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article>
+                  <h4>Назначение</h4>
+                  <p>Государственная охрана, предупреждение угроз, защита объектов, финансово-экономические и должностные расследования в пределах установленной компетенции.</p>
+                </article>
+                <article>
+                  <h4>Подразделения</h4>
+                  <p><b>CAT</b> — тактическое усиление. <b>DSA</b> — организационно-охранное направление. <b>USMS</b> — исполнение судебных и прокурорских актов.</p>
+                </article>
+                <article>
+                  <h4>Что важно помнить</h4>
+                  <p>USSS действует по всему штату в пределах своих полномочий. Обычно задержанного передают LSPD, LSCSD или FIB; самостоятельно довести до КПЗ можно при исполнении ордера или иска.</p>
+                </article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>CAT</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article><h4>Задачи</h4><p>Тактическое усиление, защита охраняемых лиц и участие в ситуациях повышенного риска.</p></article>
+                <article><h4>Когда привлекается</h4><p>При наличии угрозы охраняемому лицу, вооружённом сопротивлении и специальных операциях.</p></article>
+                <article><h4>Ограничение</h4><p>Не заменяет обычную патрульную или следственную работу без законного основания.</p></article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>DSA</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article><h4>Задачи</h4><p>Организация внутренней службы, рекрутинг, контроль доступа и охранные функции в пределах регламента.</p></article>
+                <article><h4>Взаимодействие</h4><p>Работа с руководством USSS, CAT и USMS по вопросам внутренней организации и безопасности.</p></article>
+                <article><h4>Ограничение</h4><p>Полный перечень полномочий определяется актуальным уставом подразделения.</p></article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>United States Marshals Service (USMS)</summary>
+            <div class="gov-accordion-body">
+              <div class="section-head">
+          <div>
+            <div class="eyebrow">UNITED STATES MARSHALS SERVICE</div>
+            <h3>Полномочия и обязанности USMS</h3>
+          </div>
+        </div>
+
+        <div class="source-note">
+          USMS является подразделением USSS. На сотрудников распространяются правила идентификации, секретности и внутреннего подчинения службы.
+        </div>
+
+        <div class="usms-feature-grid">
+          <article class="usms-feature"><h4>Исполнение решений</h4><p>Контроль и непосредственное исполнение ордеров, судебных приговоров и постановлений прокуратуры.</p></article>
+          <article class="usms-feature"><h4>Транспортировка</h4><p>Доставка лиц на допрос, в суд или к месту содержания и исполнения наказания.</p></article>
+          <article class="usms-feature"><h4>Безопасность</h4><p>Охрана судебных заседаний, участников процесса и мероприятий с участием первых лиц.</p></article>
+          <article class="usms-feature"><h4>Федеральный розыск</h4><p>Поиск, задержание и арест: федеральный розыск приравнен к ордеру на арест.</p></article>
+          <article class="usms-feature"><h4>Защита свидетелей</h4><p>Реализация мер защиты участников судебного процесса.</p></article>
+          <article class="usms-feature"><h4>Финансовое направление</h4><p>Расследование финансовых преступлений и надзор за исполнением денежных взысканий в пределах компетенции.</p></article>
+          <article class="usms-feature"><h4>Следствие</h4><p>Проведение досудебных расследований и передача материалов прокуратуре.</p></article>
+          <article class="usms-feature"><h4>Федеральная юрисдикция</h4><p>Право действовать на всей территории штата в пределах федеральной компетенции.</p></article>
+        </div>
+
+        <div class="power-panels">
+          <article class="power-panel">
+            <h4>Доступ в помещения</h4>
+            <p>Жилище — по судебному акту либо в неотложном случае, прямо предусмотренном законом, с последующим уведомлением прокурора. Одного предположения недостаточно.</p>
+          </article>
+          <article class="power-panel">
+            <h4>Закрытые и режимные территории</h4>
+            <p>Допускается проникновение для исполнения ордера. После выполнения задачи сотрудник обязан покинуть объект, если отсутствуют иные основания оставаться.</p>
+          </article>
+          <article class="power-panel">
+            <h4>Идентификация</h4>
+            <p>При обращении к участнику RP сотрудник подтверждает полномочия предусмотренным служебным удостоверением/идентификатором. Секретность личности не отменяет обязанность подтвердить статус.</p>
+          </article>
+          <article class="power-panel">
+            <h4>Маска</h4>
+            <p>При исполнении сотрудник вправе не снимать маску, если предъявил предусмотренный идентификатор или служебное удостоверение.</p>
+          </article>
+        </div>
+
+        <div class="procedure-alert">
+          <strong>Ключевой принцип:</strong> предъявление удостоверения подтверждает полномочия, но не делает секретные персональные данные общедоступными.
+        </div>
+              <div class="usms-rules">
+                <h4>Что нельзя делать</h4>
+                <ul>
+                  <li>Раскрывать защищённые персональные данные сотрудников.</li>
+                  <li>Распространять служебные документы лицам без допуска.</li>
+                  <li>Проникать на объект без законного основания.</li>
+                  <li>Оставаться на режимной территории после завершения задачи без иных оснований.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>Department of Justice / Прокуратура</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article><h4>Роли</h4><p>Attorney General, Federal Attorney, Attorney и Attorney Assistant.</p></article>
+                <article><h4>Что делает</h4><p>Процессуальный надзор, рассмотрение материалов, подготовка постановлений, участие в расследованиях и судебных процессах.</p></article>
+                <article><h4>Когда обращаться</h4><p>При спорном задержании, необходимости прокурорского решения, передаче материалов следствия или проверке законности действий.</p></article>
+                <article><h4>Что нельзя</h4><p>Подменять суд, выходить за пределы компетенции и принимать решения без изучения материалов.</p></article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>Court / Судебная система</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article><h4>Роли</h4><p>Federal Judge, Chief of Justice, Supreme Judge, Chief Judge of DC и Judge.</p></article>
+                <article><h4>Что делает</h4><p>Рассматривает дела, выдаёт судебные акты и ордера, оценивает доказательства и выносит решения.</p></article>
+                <article><h4>Взаимодействие</h4><p>USMS обеспечивает исполнение судебных актов и безопасность процесса; прокуратура и адвокаты представляют позиции сторон.</p></article>
+                <article><h4>Что нельзя</h4><p>Игнорировать процессуальные гарантии, принимать решение без надлежащего рассмотрения и выходить за рамки судебной компетенции.</p></article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>Bar Association / Адвокатура</summary>
+            <div class="gov-accordion-body">
+              <div class="structure-tabs">
+                <article><h4>Роли</h4><p>Junior Lawyer, Lawyer и Senior Lawyer.</p></article>
+                <article><h4>Что делает</h4><p>Защищает права доверителя, участвует в процессуальных действиях, консультирует и представляет позицию клиента.</p></article>
+                <article><h4>При задержании</h4><p>Уточняет основания, следит за соблюдением прав, знакомится с доступными материалами и оказывает юридическую помощь.</p></article>
+                <article><h4>Что нельзя</h4><p>Препятствовать законным действиям, разглашать защищённую информацию и использовать статус для срыва процедуры.</p></article>
+              </div>
+            </div>
+          </details>
+
+          <details class="gov-accordion">
+            <summary>Государственная тайна и личность USMS</summary>
+            <div class="gov-accordion-body">
+              <div class="section-head">
+          <div>
+            <div class="eyebrow">STATE SECRET</div>
+            <h3>Государственная тайна и личность USMS</h3>
+          </div>
+        </div>
+
+        <div class="secrecy-hero">
+          <h4>Личность сотрудника USMS может быть защищена</h4>
+          <p>Сведения о личном составе засекреченных подразделений и их делопроизводстве относятся к информации ограниченного доступа. Полное раскрытие допускается только уполномоченным лицам и органам.</p>
+        </div>
+
+        <div class="secrecy-grid">
+          <article class="secrecy-card"><h4>14.3 УК</h4><p>Разглашение сведений, составляющих государственную тайну.</p><button class="pgo-link" data-pgo-code="14.3">Открыть статью</button></article>
+          <article class="secrecy-card"><h4>14.3.1 УК</h4><p>Незаконное получение сведений, составляющих государственную тайну.</p><button class="pgo-link" data-pgo-code="14.3.1">Открыть статью</button></article>
+          <article class="secrecy-card"><h4>Идентификация</h4><p>Сотрудник показывает служебный идентификатор, но предупреждает о режиме государственной тайны, если его данные засекречены.</p></article>
+          <article class="secrecy-card"><h4>Кому можно раскрывать</h4><p>Руководству, прокуратуре, губернатору и иным лицам, прямо уполномоченным действующим законом.</p></article>
+        </div>
+
+        <div class="danger-note">
+          Публичное распространение имени, документов или иных данных сотрудника USMS без законного допуска может повлечь внутриигровую уголовную ответственность.
+        </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="role-workspace">
+          <div class="section-head compact-head">
+            <div>
+              <div class="eyebrow">ROLE WORKSPACES</div>
+              <h3>Рабочие наборы по ролям</h3>
+            </div>
+          </div>
+
+          <div class="role-tabs" role="tablist">
+            <button class="role-tab active" data-role-tab="lawyer">Адвокат</button>
+            <button class="role-tab" data-role-tab="prosecutor">Прокурор</button>
+            <button class="role-tab" data-role-tab="judge">Судья</button>
+            <button class="role-tab" data-role-tab="usss">USSS</button>
+            <button class="role-tab" data-role-tab="usms">USMS</button>
+            <button class="role-tab" data-role-tab="immunity">Особый статус</button>
+          </div>
+
+          <div class="role-panels">
+            <article class="role-panel active" data-role-panel="lawyer">
+              <h4>Адвокат</h4>
+              <div class="role-grid">
+                <section><h5>Основные задачи</h5><ul><li>Защита прав доверителя.</li><li>Консультация и участие в допустимых действиях.</li><li>Проверка соблюдения процессуальных гарантий.</li></ul></section>
+                <section><h5>Полезно открыть</h5><button data-jump="miranda">Миранда</button><button data-jump="fieldguide" data-open-guide="guide-lawyer">Запрос адвоката</button></section>
+                <section><h5>Основные темы</h5><ul><li>Основания задержания.</li><li>Обыск и доказательства.</li><li>Залог и судебная процедура.</li><li>Преступления против правосудия.</li></ul></section>
+                <section class="danger-mini"><h5>Частые ошибки</h5><ul><li>Срыв законного действия вместо защиты.</li><li>Требование несуществующих полномочий.</li><li>Разглашение защищённых сведений.</li></ul></section>
+              </div>
+            </article>
+
+            <article class="role-panel" data-role-panel="prosecutor">
+              <h4>Прокурор</h4>
+              <div class="role-grid">
+                <section><h5>Основные задачи</h5><ul><li>Процессуальный надзор.</li><li>Проверка законности действий.</li><li>Работа с материалами и постановлениями.</li><li>Участие в судебном процессе.</li></ul></section>
+                <section><h5>Ключевые статьи</h5><button data-open-code="15.1">15.1</button><button data-open-code="16.11">16.11</button><button data-open-code="14.3">14.3</button></section>
+                <section><h5>Полезно открыть</h5><button data-jump="fieldguide" data-open-guide="guide-prosecutor">Вызов прокурора</button><button data-jump="situations">Ситуации</button></section>
+                <section class="danger-mini"><h5>Частые ошибки</h5><ul><li>Решение без изучения материалов.</li><li>Подмена судебной компетенции.</li><li>Отсутствие фиксации основания.</li></ul></section>
+              </div>
+            </article>
+
+            <article class="role-panel" data-role-panel="judge">
+              <h4>Судья</h4>
+              <div class="role-grid">
+                <section><h5>Основные задачи</h5><ul><li>Рассмотрение дел и доказательств.</li><li>Выдача судебных актов и ордеров.</li><li>Обеспечение равенства сторон.</li></ul></section>
+                <section><h5>Взаимодействие</h5><ul><li>USMS исполняет судебные решения.</li><li>Прокуратура и защита представляют позиции.</li></ul></section>
+                <section><h5>Полезно открыть</h5><button data-jump="fieldguide" data-open-guide="guide-order">Ордер</button><button data-jump="hierarchy">Судебная иерархия</button></section>
+                <section class="danger-mini"><h5>Частые ошибки</h5><ul><li>Решение без надлежащего рассмотрения.</li><li>Выход за рамки компетенции.</li><li>Игнорирование процессуальных прав.</li></ul></section>
+              </div>
+            </article>
+
+            <article class="role-panel" data-role-panel="usss">
+              <h4>USSS / CAT / DSA</h4>
+              <div class="role-grid">
+                <section><h5>USSS</h5><p>Охрана, координация специальных задач и руководство внутренними подразделениями.</p></section>
+                <section><h5>CAT</h5><p>Тактическое усиление и работа в ситуациях повышенного риска.</p></section>
+                <section><h5>DSA</h5><p>Организация внутренней службы, рекрутинг, доступ и охранные функции по уставу.</p></section>
+                <section class="danger-mini"><h5>Общее ограничение</h5><p>Полномочия применяются только в пределах закона, устава и поставленной задачи.</p></section>
+              </div>
+            </article>
+
+            <article class="role-panel" data-role-panel="usms">
+              <h4>USMS</h4>
+              <div class="role-grid">
+                <section><h5>Задачи</h5><ul><li>Исполнение ордеров и судебных решений.</li><li>Федеральный розыск.</li><li>Транспортировка и безопасность суда.</li><li>Следственные действия и передача материалов прокуратуре в пределах компетенции.</li></ul></section>
+                <section><h5>Идентификация</h5><p>Жетон, нашивка или удостоверение подтверждают полномочия. Снимать маску только ради идентификации не требуется, если закон допускает иной способ.</p></section>
+                <section><h5>Ключевые статьи</h5><button data-open-code="14.3">14.3</button><button data-open-code="14.3.1">14.3.1</button></section>
+                <section class="danger-mini"><h5>Границы компетенции</h5><ul><li>Не подменять FIB в обычном расследовании похищений и иных профильных преступлений.</li><li>Не отправлять человека в КПЗ без ордера, судебного/прокурорского акта или федерального розыска.</li><li>По этим основаниям USMS вправе самостоятельно довести исполнение до помещения под стражу.</li><li>При обычном задержании USSS передаёт лицо LSPD, LSCSD или FIB.</li><li>Не раскрывать защищённый личный состав.</li></ul></section>
+              </div>
+            </article>
+
+            <article class="role-panel" data-role-panel="immunity">
+              <h4>Неприкосновенность и особый статус</h4>
+              <div class="role-grid">
+                <section><h5>Порядок</h5><ol><li>Установить должность.</li><li>Проверить действующий перечень.</li><li>Определить специальную процедуру.</li><li>Связаться с прокуратурой или руководством.</li></ol></section>
+                <section><h5>Важно</h5><p>Неприкосновенность меняет порядок действий, но не означает отсутствие ответственности.</p></section>
+                <section><h5>Полезно открыть</h5><button data-jump="situations">Ситуации</button><button data-jump="immunity">Подробный раздел</button></section>
+                <section class="danger-mini"><h5>Ошибка</h5><p>Самовольное принудительное действие без проверки статуса и требуемого разрешения.</p></section>
+              </div>
+            </article>
+          </div>
+        </div>
+</section>
 
       <section id="immunity" class="page-section">
         <div class="section-head">
@@ -285,7 +928,7 @@
           Нарушение может повлечь административное наказание аккаунта независимо от наличия или отсутствия состава внутриигровой статьи.
         </div>
 
-        <div class="pgo-grid">
+        <div class="pgo-grid hidden">
           <article class="pgo-card danger">
             <div class="pgo-label">РИСК НАКАЗАНИЯ</div>
             <h4>Злоупотребление функционалом</h4>
@@ -324,9 +967,179 @@
           </article>
         </div>
 
+        <div class="pgo-article-list">
+          <article><div class="pgo-article-ref">ПГО • Общие правила государственных организаций</div><h4>Злоупотребление функционалом</h4><p>Запрещено намеренно использовать служебный функционал с нарушением RP-логики или для получения необоснованного преимущества.</p><small>Связанные нормы: компетенция сотрудника и ответственность должностного лица.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Правила проведения задержаний</div><h4>Нельзя задерживать только за маску</h4><p>Ношение маски само по себе не является основанием задержания. При законном основании запускается процедура установления личности.</p><small>Связанные нормы: примечание к УК 17.6; процедура установления личности по ПК.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Правила проведения задержаний</div><h4>17.6 не назначается автоматически</h4><p>Отказ предъявить документы, назвать имя или снять предмет, скрывающий лицо, сам по себе не образует неповиновение.</p><small>Связанная статья: УК 17.6.</small><button class="pgo-link" data-pgo-code="17.6">Открыть 17.6</button></article>
+          <article><div class="pgo-article-ref">ПГО • Права задержанного</div><h4>Адвокат и телефонный звонок</h4><p>Сотрудник обязан реализовать право на адвоката и один звонок. На принятие вызова даётся до 3 минут; после принятия — ещё до 7 минут на прибытие.</p><small>Связанные нормы: Процессуальный кодекс и серверный порядок вызова адвоката.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Отыгровка процессуальных действий</div><h4>Статьи и права произносятся полностью</h4><p>Основание, статьи и Миранда сообщаются разборчиво голосом; при отсутствии звука или соответствующей особенности — текстом.</p><small>Связанные нормы: процедура задержания по ПК.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Назначение наказания</div><h4>Запрещён необоснованный максимум</h4><p>Нельзя выдавать максимальные звёзды, срок или запись о судимости за незначительное нарушение без предусмотренного основания.</p><small>Связанные нормы: тяжесть преступления и санкция соответствующей статьи УК.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Задержание государственного служащего</div><h4>Решение прокурора</h4><p>Государственный служащий обычно помещается в КПЗ только после решения прокурора и прекращения службы. Исключения определяются ордером, судом и специальными правилами.</p><small>Связанные нормы: ПК о задержании госслужащих.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Функциональные ограбления</div><h4>Выезд на ограбление</h4><p>На событие выезжают минимум два сотрудника на фракционном транспорте. Найденные предметы запрещено оставлять себе.</p><small>Связанные нормы: ПК об обыске транспорта на месте ограбления.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Ограничения процессуальных действий</div><h4>Запрещено затягивать задержание</h4><p>Нельзя намеренно удерживать человека без выполнения необходимых действий или использовать процессуальный срок для давления.</p><small>Связанная норма: предельный срок задержания по ПК — один час.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Идентификация сотрудников</div><h4>Служебное удостоверение</h4><p>Сотрудник обязан иметь и предъявить предусмотренное удостоверение участнику RP. Секретность персональных данных не отменяет подтверждение полномочий.</p><small>Связанные нормы: профильный закон соответствующей структуры.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Государственное имущество</div><h4>Изъятое нельзя присваивать</h4><p>Служебное, изъятое или найденное на мероприятии имущество используется и сдаётся только в установленном порядке.</p><small>Связанные нормы: закон об оружии и государственных спецсредствах.</small></article>
+          <article><div class="pgo-article-ref">ПГО • Компетенция государственных структур</div><h4>Работа вне своей категории</h4><p>Региональная или федеральная структура выходит за пределы обычной компетенции только по одобренному запросу либо прямому законному исключению.</p><small>Связанные нормы: ПК о региональной, федеральной и военной компетенции.</small></article>
+        </div>
+
         <div class="legal-source-block">
           <b>Источник:</b> официальный раздел «Правила государственных организаций» Majestic RP.
-          В handbook намеренно не указаны фиксированные сроки блокировки: администрация может менять санкции и учитывать обстоятельства нарушения.
+          Названия тематических пунктов указаны вместо выдуманных номеров. Для точной цифровой нумерации требуется полная актуальная публикация ПГО.
+        </div>
+      </section>
+
+
+      <section id="hierarchy" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">GOVERNMENT STRUCTURE</div>
+            <h3>Иерархия должностей</h3>
+          </div>
+        </div>
+
+        <div class="hierarchy-groups">
+          <article class="hierarchy-group leadership">
+            <h4>Высшее руководство</h4>
+            <div class="rank-list">
+              <div><b>29</b><span>Governor — Губернатор</span></div>
+              <div><b>28</b><span>Vice Governor — Вице-губернатор</span></div>
+              <div><b>27</b><span>Federal Judge — Федеральный судья</span></div>
+              <div><b>26</b><span>Chief of Justice — Председатель Верховного суда</span></div>
+              <div><b>25</b><span>Attorney General — Министр юстиции</span></div>
+              <div><b>24</b><span>State Treasurer — Министр финансов</span></div>
+              <div><b>23</b><span>Minister — Министр</span></div>
+            </div>
+          </article>
+
+          <article class="hierarchy-group justice">
+            <h4>Судебная власть</h4>
+            <div class="rank-list">
+              <div><b>22</b><span>Supreme Judge — Верховный судья</span></div>
+              <div><b>19</b><span>Chief Judge of DC — Председатель окружного суда</span></div>
+              <div><b>14</b><span>Judge — Окружной судья</span></div>
+            </div>
+          </article>
+
+          <article class="hierarchy-group administration">
+            <h4>Аппарат и муниципальная власть</h4>
+            <div class="rank-list">
+              <div><b>21</b><span>Chief of Staff — Глава аппарата / Глава коллегии адвокатов</span></div>
+              <div><b>20</b><span>Deputy Minister — Заместитель министра</span></div>
+              <div><b>18</b><span>D. Chief of Staff — Заместитель главы аппарата / коллегии адвокатов</span></div>
+              <div><b>17</b><span>Mayor — Мэр Лос-Сантоса / Округа Блейн</span></div>
+              <div><b>6</b><span>Government Staff — Администратор секретариата / Senior Event Manager</span></div>
+              <div><b>4</b><span>Secretary — Секретарь / Event Manager</span></div>
+              <div><b>1</b><span>Trainee — Стажёр секретариата / USSS / министерств / промоутер</span></div>
+            </div>
+          </article>
+
+          <article class="hierarchy-group usss">
+            <h4>United States Secret Service</h4>
+            <div class="rank-list">
+              <div><b>16</b><span>Director USSS — Директор USSS</span></div>
+              <div><b>15</b><span>Deputy Director USSS — Заместитель директора USSS</span></div>
+              <div><b>10</b><span>Secret Agent USSS — Глава подотдела / Секретный агент</span></div>
+              <div><b>9</b><span>Special Agent USSS — Заместитель главы подотдела / Специальный агент</span></div>
+              <div><b>7</b><span>Senior Agent USSS — Старший агент USSS</span></div>
+              <div><b>5</b><span>Agent USSS — Агент USSS</span></div>
+            </div>
+          </article>
+
+          <article class="hierarchy-group prosecution">
+            <h4>Прокуратура</h4>
+            <div class="rank-list">
+              <div><b>13</b><span>Federal Attorney — Федеральный прокурор</span></div>
+              <div><b>12</b><span>Attorney — Прокурор</span></div>
+              <div><b>2</b><span>Attorney Assistant — Помощник прокурора</span></div>
+            </div>
+          </article>
+
+          <article class="hierarchy-group lawyers">
+            <h4>Коллегия адвокатов</h4>
+            <div class="rank-list">
+              <div><b>11</b><span>Senior Lawyer — Старший адвокат</span></div>
+              <div><b>8</b><span>Lawyer — Адвокат</span></div>
+              <div><b>3</b><span>Junior Lawyer — Юрист / Младший адвокат</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <section id="workflows" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PRACTICAL WORKFLOWS</div>
+            <h3>Алгоритмы действий</h3>
+          </div>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <h4>Передача материалов в прокуратуру</h4>
+            <ol>
+              <li>Проверить законность получения материалов.</li>
+              <li>Собрать доказательства и процессуальные документы.</li>
+              <li>Кратко описать факты и предварительную квалификацию.</li>
+              <li>Передать материалы уполномоченному прокурору.</li>
+              <li>Зафиксировать факт передачи и дальнейшие указания.</li>
+            </ol>
+          </article>
+
+          <article class="workflow-card">
+            <h4>Вызов прокурора</h4>
+            <ol>
+              <li>Определить, действительно ли требуется прокурорское решение.</li>
+              <li>Сообщить краткую суть ситуации и местоположение.</li>
+              <li>Сохранить статус-кво и доказательства до прибытия.</li>
+              <li>Передать прокурору факты без давления на итоговое решение.</li>
+            </ol>
+          </article>
+
+          <article class="workflow-card">
+            <h4>Вызов адвоката</h4>
+            <ol>
+              <li>Сообщить задержанному о праве на адвоката.</li>
+              <li>Зафиксировать запрос.</li>
+              <li>Вызвать доступного адвоката и начать предусмотренное ожидание.</li>
+              <li>Не препятствовать законной юридической помощи.</li>
+              <li>Продолжить процедуру в порядке, установленном актуальным ПК.</li>
+            </ol>
+          </article>
+
+          <article class="workflow-card">
+            <h4>Получение и исполнение ордера</h4>
+            <ol>
+              <li>Проверить орган, выдавший ордер, объект и срок действия.</li>
+              <li>Определить пределы разрешённых действий.</li>
+              <li>Установить объект исполнения и обеспечить фиксацию.</li>
+              <li>Исполнить только указанное в ордере.</li>
+              <li>Покинуть объект после исполнения, если нет иных оснований.</li>
+              <li>Оформить результат.</li>
+            </ol>
+          </article>
+
+          <article class="workflow-card">
+            <h4>Федеральный розыск</h4>
+            <ol>
+              <li>Проверить актуальность розыска и основания.</li>
+              <li>Установить личность и местонахождение.</li>
+              <li>Спланировать задержание с учётом риска.</li>
+              <li>Произвести задержание и обыск по процедуре.</li>
+              <li>Уведомить инициатора розыска и передать материалы.</li>
+            </ol>
+          </article>
+
+          <article class="workflow-card">
+            <h4>Работа с лицом особого статуса</h4>
+            <ol>
+              <li>Установить точную должность.</li>
+              <li>Проверить наличие неприкосновенности.</li>
+              <li>Определить специальный порядок и требуемое разрешение.</li>
+              <li>Связаться с прокуратурой или уполномоченным руководством.</li>
+              <li>Не предпринимать необратимых действий без законного основания.</li>
+            </ol>
+          </article>
         </div>
       </section>
 
@@ -343,6 +1156,31 @@
           <span class="section-note">Добавляйте статьи в этот раздел кнопкой «В частые» внутри кодекса.</span>
         </div>
         <div id="frequentArticles" class="frequent-grid"></div>
+      </section>
+
+      <section id="academy" class="page-section">
+        <div class="section-head">
+          <div><div class="eyebrow">GOVERNMENT ACADEMY</div><h3>Обучение по ролям</h3></div>
+        </div>
+        <div class="source-note"><strong>Для новичка:</strong> выберите свою роль, изучите порядок действий, затем отдельно сверяйтесь с разделом ПГО и официальными законами.</div>
+        <div class="academy-panel active" data-academy-panel="role-guides">
+          <div class="academy-intro"><h4>Пошаговые инструкции</h4><p>Откройте свою роль: сначала показан порядок работы, затем полномочия, запреты и официальные основания.</p></div>
+          <div class="role-guide-list">
+            <details open><summary>USSS — базовая служба и задержание</summary><div class="role-guide-body"><ol><li>Начать смену: форма, удостоверение, бодикамера, оружие, лицензия и медицинская справка.</li><li>Уточнить охраняемых лиц, объекты и поставленную задачу.</li><li>Работать у мэрии либо по законному исключению: сопровождение, охранная задача, терроризм, банк/бизнес, ЧП, суд, ордер или иск.</li><li>При угрозе пресечь преступление, установить личность, провести задержание и первичный обыск.</li><li>Без ордера или иска передать задержанного LSPD, LSCSD либо FIB.</li></ol><div class="guide-do-dont"><section><h5>Можно</h5><p>Госохрана, проверки по компетенции, пресечение угроз, финансовые и должностные расследования.</p></section><section><h5>Нельзя</h5><p>Обычное патрулирование вне исключений, необоснованный арест, присвоение изъятого, выход за компетенцию.</p></section></div><small>Основания: Закон о Секретной службе; ПК; ПГО; закон об оружии.</small></div></details>
+            <details><summary>USMS — ордер, розыск и суд</summary><div class="role-guide-body"><ol><li>Получить акт и проверить автора, номер, объект, срок и пределы.</li><li>Установить лицо и оценить риск; при необходимости запросить поддержку.</li><li>Представиться, сообщить документ и провести задержание по процедуре.</li><li>Выполнить обыск и изъятие только в разрешённых пределах.</li><li>Доставить лицо в суд или КПЗ, если акт либо федеральный розыск это предусматривает.</li><li>Уведомить инициатора, зафиксировать исполнение и покинуть объект.</li></ol><div class="guide-do-dont"><section><h5>Можно</h5><p>Ордера, федеральный розыск, транспортировка, безопасность суда, защита свидетелей и исполнение актов.</p></section><section><h5>Нельзя</h5><p>Расширять акт, применять просроченный документ, входить в жилище по догадке, подменять профильное расследование FIB.</p></section></div><small>Основания: Закон о USMS; Закон о USSS; ПК; Судебный кодекс.</small></div></details>
+            <details><summary>Адвокат — защита при задержании</summary><div class="role-guide-body"><ol><li>Принять вызов в течение 3 минут, прибыть в течение следующих 7 минут и предъявить действующую лицензию.</li><li>Уточнить время, основание задержания и предъявленные статьи.</li><li>Проверить Миранду, обыск, доказательства и компетенцию сотрудника.</li><li>Провести конфиденциальную консультацию с доверителем.</li><li>Заявить ходатайства; при признаках нарушения вызвать прокурора.</li><li>При необходимости использовать упрощённое судебное обжалование.</li></ol><div class="guide-do-dont"><section><h5>Можно</h5><p>Консультировать, знакомиться с доступными материалами, заявлять ходатайства и защищать позицию доверителя.</p></section><section><h5>Нельзя</h5><p>Физически мешать, скрывать доказательства, склонять ко лжи, разглашать тайну или искусственно затягивать процедуру.</p></section></div><small>Основания: ПК; Судебный кодекс; закон об адвокатуре; УК 9.3, 16.1, 16.11.</small></div></details>
+            <details><summary>Прокурор — надзор и решение</summary><div class="role-guide-body"><ol><li>Принять запрос и выяснить конкретный процессуальный вопрос.</li><li>Запросить видеозапись, статьи, основания и материалы обыска.</li><li>Проверить компетенцию, сроки и соблюдение прав.</li><li>Опросить участников при необходимости и принять мотивированное решение.</li><li>По госслужащему определить виновность и допустимое дальнейшее действие.</li><li>Оформить результат и разъяснить порядок обжалования.</li></ol><div class="guide-do-dont"><section><h5>Можно</h5><p>Надзор, проверка законности, постановления, участие в расследовании и поддержание обвинения.</p></section><section><h5>Нельзя</h5><p>Подменять суд, принимать решение без материалов, игнорировать сроки или давить на показания.</p></section></div><small>Основания: ПК; закон о прокуратуре; Судебный кодекс; ПГО.</small></div></details>
+            <details><summary>Судья — принятие дела и заседание</summary><div class="role-guide-body"><ol><li>Проверить подсудность, форму и приложенные материалы.</li><li>В установленный срок принять заявление, оставить без движения либо отказать.</li><li>Надлежащим образом уведомить участников.</li><li>Назначить заседание и определить открытый или закрытый формат.</li><li>Обеспечить равенство сторон, рассмотреть доказательства и ходатайства.</li><li>Огласить решение, разъяснить смысл и передать исполнение приставу/USMS.</li></ol><div class="guide-do-dont"><section><h5>Можно</h5><p>Рассматривать дела, толковать нормы, выдавать акты и контролировать их исполнение.</p></section><section><h5>Нельзя</h5><p>Выполнять функцию стороны, рассматривать дело при конфликте интересов или игнорировать процессуальные гарантии.</p></section></div><small>Основания: Судебный кодекс, главы I–VIII.</small></div></details>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="usms-notices" class="page-section">
+        <div class="section-head"><div><div class="eyebrow">USMS QUICK COPY</div><h3>Шаблоны уведомлений USMS</h3></div></div>
+        <div class="source-note"><strong>Только для USMS:</strong> выберите подходящий готовый текст, замените значения в квадратных скобках и нажмите «Скопировать». Это внутренняя памятка, а не нормативный акт.</div>
+        <input id="usmsTemplateSearch" class="search-inline" placeholder="Поиск: допрос, апелляция, иск, ОГП…">
+        <div id="usmsTemplateList" class="usms-template-list"></div>
       </section>
 
       <section id="criminal" class="page-section">
@@ -394,9 +1232,9 @@
         <div class="miranda-card">
           <div class="miranda-badge">ПОЛНАЯ ВЕРСИЯ</div>
           <blockquote id="mirandaFull">
-            Вы имеете право хранить молчание. Всё, что вы скажете, может быть использовано против вас в суде.
-            Вы имеете право на адвоката. Если вы не можете оплатить услуги адвоката, он будет предоставлен государством.
-            Вы имеете право на один телефонный звонок. Вам понятны ваши права?
+            Вы имеете право хранить молчание. Всё, что Вы скажете, может и будет использовано против Вас.
+            Вы имеете право на один телефонный звонок и адвоката. Если у Вас нет средств на оплату адвоката,
+            он будет предоставлен Вам государством бесплатно. Вы понимаете свои права?
           </blockquote>
           <button class="copy-btn" data-copy-target="mirandaFull">Скопировать текст</button>
         </div>
@@ -404,7 +1242,7 @@
         <div class="miranda-card compact">
           <div class="miranda-badge">СОКРАЩЁННАЯ ВЕРСИЯ</div>
           <blockquote id="mirandaShort">
-            Вы имеете право хранить молчание, право на адвоката и на один телефонный звонок.
+            Вы имеете право хранить молчание, право на один телефонный звонок и адвоката.
             Всё сказанное вами может быть использовано в суде. Вам понятны ваши права?
           </blockquote>
           <button class="copy-btn" data-copy-target="mirandaShort">Скопировать текст</button>
@@ -583,7 +1421,7 @@
 
           <article class="phrase-card full">
             <div class="phrase-label">МИРАНДА</div>
-            <p id="phraseMiranda">Вы имеете право хранить молчание. Всё, что вы скажете, может быть использовано против вас в суде. Вы имеете право на адвоката. Если вы не можете оплатить услуги адвоката, он будет предоставлен государством. Вы имеете право на один телефонный звонок. Вам понятны ваши права?</p>
+            <p id="phraseMiranda">Вы имеете право хранить молчание. Всё, что Вы скажете, может и будет использовано против Вас. Вы имеете право на один телефонный звонок и адвоката. Если у Вас нет средств на оплату адвоката, он будет предоставлен Вам государством бесплатно. Вы понимаете свои права?</p>
             <button class="copy-btn" data-copy-target="phraseMiranda">Скопировать</button>
           </article>
         </div>
@@ -676,8 +1514,8 @@
           <article class="timeline-item">
             <div class="timeline-dot"></div>
             <div>
-              <strong>v1.0.1</strong>
-              <p>Поиск с подсветкой, быстрый переход по номеру, история просмотров, новые сценарии, типичные ошибки, полировка интерфейса.</p>
+              <strong>v2.3</strong>
+              <p>Clear Home: новая компактная главная без повторов, с тремя понятными маршрутами и единым поиском.</p>
             </div>
           </article>
           <article class="timeline-item">
@@ -730,10 +1568,16 @@
           </div>
         </div>
         <div class="about-card">
-          <p>GOV Handbook v1.0.1 — стабильная Washington Edition: кодекс, частые статьи, Миранда, сценарии, RP-фразы, заметки, избранное, глоссарий, FAQ и инструменты быстрого поиска.</p>
+          <p>GOV Handbook v2.3 — понятная главная, отдельные ПГО, обучение по ролям и готовые шаблоны USMS.</p>
           <p>Следующий этап: перенос полного уголовного кодекса и расширение справочных разделов.</p>
         </div>
-      </section>
+      
+        <div class="project-legal-card">
+          <h4>Правовой статус проекта</h4>
+          <p><strong>GOV Handbook Washington</strong> — неофициальный справочный проект для RolePlay на Majestic RP Washington. Он не является ресурсом администрации проекта и не заменяет официальные правила, кодексы, уставы и публикации форума.</p>
+          <p>При любом расхождении приоритет имеет актуальная редакция официального документа Washington. Структура, дизайн и пояснительные материалы handbook являются самостоятельной систематизацией информации для удобства пользователей.</p>
+        </div>
+</section>
     </main>
   </div>
 
@@ -756,6 +1600,10 @@
     </div>
   </div>
 
+  <footer class="legal-footer">
+    <strong>GOV Handbook Washington — неофициальный справочный проект.</strong>
+    Не аффилирован с администрацией Majestic RP. При расхождении приоритет имеют официальные документы и действующие правила сервера Washington.
+  </footer>
   <div id="toast" class="toast">Скопировано</div>
 
   <script src="data.js"></script>
