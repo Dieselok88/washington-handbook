@@ -168,6 +168,89 @@ function showToast(text){
   setTimeout(() => toast.classList.remove('show'), 1400);
 }
 
+
+function normalizeSearchText(value=''){
+  return value.toLowerCase()
+    .replace(/ё/g,'е')
+    .replace(/(\d+)\s*[.,]\s*(\d+)/g,'$1.$2')
+    .replace(/[^\p{L}\p{N}.]+/gu,' ')
+    .trim();
+}
+
+const SEARCH_SYNONYMS = {
+  'арест':'задержание наручники кпз',
+  'задержать':'задержание арест',
+  'коп':'сотрудник правоохранительный',
+  'маршал':'usms суд конвой',
+  'суд':'судебное заседание зал капитолий',
+  'шум':'нарушение порядка крик хулиганство',
+  'орет':'крик шум нарушение порядка',
+  'мат':'нецензурная брань 5.3',
+  'оскорбляет':'оскорбление 5.12 6.6',
+  'обыск машины':'обыск автомобиля досмотр транспорта',
+  'машина':'автомобиль транспорт',
+  'пистолет':'оружие',
+  'ствол':'оружие',
+  'убежал':'побег 17.10',
+  'не слушается':'неповиновение 17.6',
+  'мешает':'помеха нарушение порядка 17.9',
+  'закрытая зона':'служебная зона контроль доступа',
+  'бомба':'взрыв эвакуация',
+  'адвокат':'защитник lawyer',
+  'прокурор':'прокуратура doj'
+};
+
+function expandSearchQuery(value){
+  const q=normalizeSearchText(value);
+  const extras=[];
+  Object.entries(SEARCH_SYNONYMS).forEach(([key, synonyms])=>{
+    if(q.includes(normalizeSearchText(key))) extras.push(synonyms);
+  });
+  return normalizeSearchText(`${q} ${extras.join(' ')}`);
+}
+
+function searchTokens(value){
+  return [...new Set(expandSearchQuery(value).split(/\s+/).filter(Boolean))];
+}
+
+function levenshtein(a,b){
+  if(Math.abs(a.length-b.length)>2) return 99;
+  const row=Array.from({length:b.length+1},(_,i)=>i);
+  for(let i=1;i<=a.length;i++){
+    let prev=row[0]; row[0]=i;
+    for(let j=1;j<=b.length;j++){
+      const old=row[j];
+      row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));
+      prev=old;
+    }
+  }
+  return row[b.length];
+}
+
+function smartScore(query, text, boost=''){
+  const raw=normalizeSearchText(query);
+  if(!raw) return 0;
+  const hay=normalizeSearchText(`${boost} ${text}`);
+  const tokens=searchTokens(query);
+  const words=hay.split(/\s+/);
+  let score=hay.includes(raw)?120:0;
+  for(const token of tokens){
+    if(hay.includes(token)) score+=token.length>2?18:6;
+    else if(token.length>=5 && words.some(word=>Math.abs(word.length-token.length)<=1 && levenshtein(token,word)<=1)) score+=8;
+  }
+  return score;
+}
+
+function getSituationKnowledge(){
+  return [...document.querySelectorAll('.situation-card')].map((card,index)=>({
+    title:card.querySelector('h4')?.textContent.trim() || `Ситуация ${index+1}`,
+    type:'Ситуация',
+    section:'situations',
+    target:card.id || '',
+    terms:`${card.dataset.situationTags||''} ${card.innerText}`
+  }));
+}
+
 const KNOWLEDGE_INDEX = [
   {title:'Шпаргалка: задержание', type:'Процедура', section:'fieldguide', target:'guide-detention', terms:'задержание наручники миранда обыск'},
   {title:'Шпаргалка: обыск', type:'Процедура', section:'fieldguide', target:'guide-search', terms:'обыск изъятие помещение'},
@@ -182,7 +265,12 @@ const KNOWLEDGE_INDEX = [
   {title:'Неприкосновенность', type:'Особый статус', section:'government', role:'immunity', terms:'неприкосновенность губернатор судья статус'},
   {title:'Что делать: побег', type:'Ситуация', section:'situations', terms:'побег убегает преследование'},
   {title:'Что делать: раскрытие USMS', type:'Ситуация', section:'situations', terms:'разглашение личность маршал гостайна'},
-  {title:'Что делать: федеральный розыск', type:'Ситуация', section:'situations', terms:'федеральный розыск usms'}
+  {title:'Что делать: федеральный розыск', type:'Ситуация', section:'situations', terms:'федеральный розыск usms'},
+  {title:'Что делать: охрана суда', type:'Ситуация', section:'situations', target:'situation-court-security', terms:'суд охрана порядок заседание usms'},
+  {title:'Что делать: нарушение порядка в суде', type:'Ситуация', section:'situations', target:'situation-court-disorder', terms:'шум крик мат оскорбление судьи перебивает'},
+  {title:'Что делать: оружие в суде', type:'Ситуация', section:'situations', target:'situation-court-weapon', terms:'оружие пистолет запрещенный предмет угроза'},
+  {title:'Что делать: задержание в суде', type:'Ситуация', section:'situations', target:'situation-court-detention', terms:'арест задержание конвой зал суда'},
+  {title:'Что делать: эвакуация суда', type:'Ситуация', section:'situations', target:'situation-court-evacuation', terms:'пожар взрыв бомба нападение тревога'}
 ];
 
 const searchWrap = globalSearch.closest('.search-wrap');
@@ -196,6 +284,11 @@ function openKnowledgeResult(item){
     const el = document.getElementById(item.target);
     if(el){
       el.open = true;
+      if(el.classList?.contains('situation-card')){
+        el._setSituationExpanded?.(true);
+        el.classList.add('search-match');
+        setTimeout(() => el.classList.remove('search-match'), 1600);
+      }
       setTimeout(() => el.scrollIntoView({behavior:'smooth', block:'center'}), 50);
     }
   }
@@ -206,29 +299,32 @@ function openKnowledgeResult(item){
 }
 
 function renderKnowledgeResults(query){
-  const q = query.trim().toLowerCase();
+  const q=query.trim();
   if(!q){
     knowledgeResults.classList.remove('show');
-    knowledgeResults.innerHTML = '';
+    knowledgeResults.innerHTML='';
     return;
   }
-  const knowledge = KNOWLEDGE_INDEX.filter(x => `${x.title} ${x.type} ${x.terms}`.toLowerCase().includes(q)).slice(0,6);
-  const articles = ARTICLES.filter(a => `${a.code} ${a.name} ${a.tags.join(' ')} ${a.note}`.toLowerCase().includes(q)).slice(0,6);
-  const items = [
-    ...knowledge.map((x,i) => ({kind:'knowledge', data:x, key:`k${i}`})),
-    ...articles.map((x,i) => ({kind:'article', data:x, key:`a${i}`}))
+  const knowledgePool=[...KNOWLEDGE_INDEX,...getSituationKnowledge().filter(x=>!KNOWLEDGE_INDEX.some(k=>k.target&&k.target===x.target))];
+  const knowledge=knowledgePool
+    .map(item=>({item,score:smartScore(q,`${item.title} ${item.type} ${item.terms}`,item.type==='Ситуация'?'ситуация что делать':'' )}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,8).map(x=>x.item);
+  const articles=ARTICLES
+    .map(item=>({item,score:smartScore(q,`${item.code} ${item.name} ${item.tags.join(' ')} ${item.note} ${item.penalty}`,`статья ${item.code}`)}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,8).map(x=>x.item);
+  const items=[
+    ...knowledge.map((x,i)=>({kind:'knowledge',data:x,key:`k${i}`})),
+    ...articles.map((x,i)=>({kind:'article',data:x,key:`a${i}`}))
   ];
-  knowledgeResults.innerHTML = items.length ? items.map(x => x.kind === 'knowledge'
-    ? `<button class="search-result-item" data-search-kind="knowledge" data-search-key="${x.key}"><strong>${x.data.title}</strong><span>${x.data.type}</span></button>`
-    : `<button class="search-result-item" data-search-kind="article" data-search-code="${x.data.code}"><strong>${x.data.code} — ${x.data.name}</strong><span>Статья кодекса</span></button>`
-  ).join('') : '<div class="search-result-item"><strong>Ничего не найдено</strong><span>Попробуйте другой запрос</span></div>';
+  knowledgeResults.innerHTML=items.length?items.map(x=>x.kind==='knowledge'
+    ?`<button class="search-result-item" data-search-kind="knowledge" data-search-key="${x.key}"><strong>${x.data.title}</strong><span>${x.data.type}</span></button>`
+    :`<button class="search-result-item" data-search-kind="article" data-search-code="${x.data.code}"><strong>${x.data.code} — ${x.data.name}</strong><span>Статья кодекса</span></button>`
+  ).join(''):'<div class="search-result-item"><strong>Ничего не найдено</strong><span>Попробуйте: «шум в суде», «не слушается», «оружие»</span></div>';
   knowledgeResults.classList.add('show');
-
-  const knowledgeMap = Object.fromEntries(items.filter(x=>x.kind==='knowledge').map(x=>[x.key,x.data]));
-  knowledgeResults.querySelectorAll('[data-search-kind="knowledge"]').forEach(btn => btn.addEventListener('click', () => openKnowledgeResult(knowledgeMap[btn.dataset.searchKey])));
-  knowledgeResults.querySelectorAll('[data-search-kind="article"]').forEach(btn => btn.addEventListener('click', () => openArticle(btn.dataset.searchCode)));
+  const knowledgeMap=Object.fromEntries(items.filter(x=>x.kind==='knowledge').map(x=>[x.key,x.data]));
+  knowledgeResults.querySelectorAll('[data-search-kind="knowledge"]').forEach(btn=>btn.addEventListener('click',()=>openKnowledgeResult(knowledgeMap[btn.dataset.searchKey])));
+  knowledgeResults.querySelectorAll('[data-search-kind="article"]').forEach(btn=>btn.addEventListener('click',()=>openArticle(btn.dataset.searchCode)));
 }
-
 globalSearch.addEventListener('input', () => {
   renderKnowledgeResults(globalSearch.value);
 });
@@ -1034,12 +1130,18 @@ document.querySelectorAll('[data-open-code]').forEach(btn => {
 
 const situationSearch = document.getElementById('situationSearch');
 situationSearch?.addEventListener('input', () => {
-  const q = situationSearch.value.trim().toLowerCase();
+  const q = situationSearch.value.trim();
   let visible = 0;
   document.querySelectorAll('.situation-card').forEach(card => {
-    const hay = `${card.innerText} ${card.dataset.situationTags || ''}`.toLowerCase();
-    const show = !q || hay.includes(q);
+    const hay = `${card.innerText} ${card.dataset.situationTags || ''}`;
+    const show = !q || smartScore(q, hay, 'ситуация что делать') > 0;
     card.style.display = show ? '' : 'none';
+    card.classList.toggle('search-match', Boolean(q && show));
+    if(q && show) card._setSituationExpanded?.(true);
+    if(!q){
+      card.classList.remove('search-match');
+      card._setSituationExpanded?.(false);
+    }
     if(show) visible++;
   });
   document.getElementById('situationEmpty')?.classList.toggle('hidden', visible > 0);
@@ -1149,23 +1251,112 @@ const homeUniversalSearch = document.getElementById('homeUniversalSearch');
 const homeSearchResults = document.getElementById('homeSearchResults');
 
 function renderHomeSearch(){
-  if(!homeUniversalSearch || !homeSearchResults) return;
-  const query = homeUniversalSearch.value.trim().toLowerCase();
-  if(!query){ homeSearchResults.classList.add('hidden'); homeSearchResults.innerHTML = ''; return; }
-  const knowledge = KNOWLEDGE_INDEX.filter(item => `${item.title} ${item.type} ${item.terms}`.toLowerCase().includes(query)).slice(0,4);
-  const articles = ARTICLES.filter(item => `${item.code} ${item.name} ${item.tags.join(' ')} ${item.note}`.toLowerCase().includes(query)).slice(0,5);
-  homeSearchResults.innerHTML = [
-    ...knowledge.map((item,index) => `<button data-home-knowledge="${index}"><span>${item.type}</span><strong>${item.title}</strong></button>`),
-    ...articles.map(item => `<button data-home-article="${item.code}"><span>СТАТЬЯ</span><strong>${item.code} — ${item.name}</strong></button>`)
-  ].join('') || '<div class="home-search-empty">Ничего не найдено. Попробуйте изменить запрос.</div>';
+  if(!homeUniversalSearch||!homeSearchResults) return;
+  const query=homeUniversalSearch.value.trim();
+  if(!query){homeSearchResults.classList.add('hidden');homeSearchResults.innerHTML='';return;}
+  const pool=[...KNOWLEDGE_INDEX,...getSituationKnowledge().filter(x=>!KNOWLEDGE_INDEX.some(k=>k.target&&k.target===x.target))];
+  const knowledge=pool.map(item=>({item,score:smartScore(query,`${item.title} ${item.type} ${item.terms}`,item.type==='Ситуация'?'ситуация что делать':'')}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,6).map(x=>x.item);
+  const articles=ARTICLES.map(item=>({item,score:smartScore(query,`${item.code} ${item.name} ${item.tags.join(' ')} ${item.note}`,`статья ${item.code}`)}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,6).map(x=>x.item);
+  homeSearchResults.innerHTML=[
+    ...knowledge.map((item,index)=>`<button data-home-knowledge="${index}"><span>${item.type}</span><strong>${item.title}</strong></button>`),
+    ...articles.map(item=>`<button data-home-article="${item.code}"><span>СТАТЬЯ</span><strong>${item.code} — ${item.name}</strong></button>`)
+  ].join('')||'<div class="home-search-empty">Ничего не найдено. Попробуйте описать ситуацию другими словами.</div>';
   homeSearchResults.classList.remove('hidden');
-  homeSearchResults.querySelectorAll('[data-home-knowledge]').forEach(btn => btn.addEventListener('click', () => openKnowledgeResult(knowledge[Number(btn.dataset.homeKnowledge)])));
-  homeSearchResults.querySelectorAll('[data-home-article]').forEach(btn => btn.addEventListener('click', () => openArticle(btn.dataset.homeArticle)));
+  homeSearchResults.querySelectorAll('[data-home-knowledge]').forEach(btn=>btn.addEventListener('click',()=>openKnowledgeResult(knowledge[Number(btn.dataset.homeKnowledge)])));
+  homeSearchResults.querySelectorAll('[data-home-article]').forEach(btn=>btn.addEventListener('click',()=>openArticle(btn.dataset.homeArticle)));
 }
-
 homeUniversalSearch?.addEventListener('input', renderHomeSearch);
 homeUniversalSearch?.addEventListener('keydown', event => {
   if(event.key !== 'Enter') return;
   const exact = ARTICLES.find(item => item.code.toLowerCase() === homeUniversalSearch.value.trim().toLowerCase());
   if(exact) openArticle(exact.code);
 });
+
+document.addEventListener('keydown', event => {
+  const active=document.activeElement;
+  const typing=active && ['INPUT','TEXTAREA','SELECT'].includes(active.tagName);
+  if((event.ctrlKey||event.metaKey) && event.key.toLowerCase()==='k'){
+    event.preventDefault(); globalSearch?.focus(); globalSearch?.select();
+  } else if(event.key==='/' && !typing){
+    event.preventDefault(); globalSearch?.focus();
+  } else if(event.key==='Escape'){
+    knowledgeResults?.classList.remove('show');
+    if(document.activeElement===globalSearch) globalSearch.blur();
+  }
+});
+
+// v2.4.2 — compact accordion for the “Что делать?” section.
+(function initSituationAccordion(){
+  const cards=[...document.querySelectorAll('.situation-card')];
+  cards.forEach((card,index)=>{
+    const head=card.querySelector(':scope > .situation-head');
+    if(!head) return;
+    if(!card.id) card.id=`situation-card-${index+1}`;
+    head.setAttribute('role','button');
+    head.setAttribute('tabindex','0');
+    head.setAttribute('aria-controls',`${card.id}-content`);
+    head.setAttribute('aria-expanded','false');
+    const toggle=(force)=>{
+      const open=typeof force==='boolean'?force:!card.classList.contains('expanded');
+      card.classList.toggle('expanded',open);
+      head.setAttribute('aria-expanded',String(open));
+    };
+    head.addEventListener('click',()=>toggle());
+    head.addEventListener('keydown',event=>{
+      if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle();}
+    });
+    card._setSituationExpanded=toggle;
+  });
+})();
+
+// v2.5 — situation favorites, automatic priority and penalty summary.
+(function initSituationFavorites(){
+  const grid=document.getElementById('situationGrid');
+  if(!grid) return;
+  const storageKey='gov-situation-favorites';
+  let saved=new Set(JSON.parse(localStorage.getItem(storageKey)||'[]'));
+  const cards=[...grid.querySelectorAll(':scope > .situation-card')];
+
+  function cardKey(card){return card.id || card.querySelector('h4')?.textContent.trim() || '';}
+  function persist(){localStorage.setItem(storageKey,JSON.stringify([...saved]));}
+  function sortCards(){
+    const ordered=[...cards].sort((a,b)=>Number(saved.has(cardKey(b)))-Number(saved.has(cardKey(a))));
+    ordered.forEach(card=>grid.appendChild(card));
+  }
+  function refreshButton(card,button){
+    const active=saved.has(cardKey(card));
+    button.classList.toggle('active',active);
+    button.textContent=active?'★':'☆';
+    button.title=active?'Убрать ситуацию из избранного':'Закрепить ситуацию наверху';
+    button.setAttribute('aria-pressed',String(active));
+    card.classList.toggle('situation-favorite',active);
+  }
+
+  cards.forEach(card=>{
+    const head=card.querySelector(':scope > .situation-head');
+    if(!head) return;
+    const fav=document.createElement('button');
+    fav.type='button'; fav.className='situation-favorite-btn';
+    fav.addEventListener('click',event=>{
+      event.stopPropagation();
+      const key=cardKey(card);
+      saved.has(key)?saved.delete(key):saved.add(key);
+      persist(); refreshButton(card,fav); sortCards();
+    });
+    fav.addEventListener('keydown',event=>event.stopPropagation());
+    head.appendChild(fav); refreshButton(card,fav);
+
+    const codes=[...card.querySelectorAll('.mini-laws [data-open-code]')].map(x=>x.dataset.openCode);
+    const unique=[...new Set(codes)].map(code=>ARTICLES.find(a=>a.code===code)).filter(Boolean);
+    if(unique.length && !card.querySelector('.situation-penalty-summary')){
+      const summary=document.createElement('div'); summary.className='situation-penalty-summary';
+      const maxStars=unique.reduce((best,a)=>a.stars.length>best.length?a.stars:best,'');
+      const penalties=[...new Set(unique.map(a=>a.penalty).filter(Boolean))];
+      summary.innerHTML=`<b>По обстоятельствам:</b> <span>${maxStars||'—'}</span><small>${penalties.slice(0,3).join(' · ')}</small>`;
+      const firstBody=head.nextElementSibling; card.insertBefore(summary,firstBody);
+    }
+  });
+  sortCards();
+})();

@@ -1111,3 +1111,48 @@ body.dark .search-inline{background-color:var(--panel);box-shadow:none}body.dark
 .home-disclaimer{margin-top:10px;color:var(--muted);font-size:9px;text-align:center}
 @media(max-width:1000px){.home-hero-compact{align-items:flex-start;flex-direction:column}.home-hero-actions{justify-content:flex-start}.home-paths{grid-template-columns:1fr}.home-path-card{min-height:125px}.home-search-results{grid-template-columns:1fr}}
 @media(max-width:650px){.home-hero-compact{padding:20px}.home-hero-compact h3{font-size:25px}.home-work-grid{grid-template-columns:1fr}.home-hero-actions button{width:100%}}
+
+.situation-checklist{
+  margin-top:12px;padding:12px 14px;border-radius:12px;
+  background:var(--soft,rgba(120,130,150,.10));line-height:1.5
+}
+.situation-card:target{outline:2px solid var(--accent,#4f75ff);outline-offset:4px}
+
+/* v2.4.2 Compact situation accordion */
+.situation-grid{grid-template-columns:1fr;gap:10px}
+.situation-card{padding:0;overflow:hidden;transition:border-color .18s ease,box-shadow .18s ease}
+.situation-card>.situation-head{
+  margin:0;padding:15px 48px 15px 17px;cursor:pointer;position:relative;
+  background:var(--panel);user-select:none;outline:none
+}
+.situation-card>.situation-head:hover{background:var(--panel-2)}
+.situation-card>.situation-head:focus-visible{box-shadow:inset 0 0 0 2px var(--accent)}
+.situation-card>.situation-head::after{
+  content:'›';position:absolute;right:18px;top:50%;transform:translateY(-50%) rotate(90deg);
+  font-size:25px;line-height:1;color:var(--accent);transition:transform .18s ease
+}
+.situation-card.expanded>.situation-head::after{transform:translateY(-50%) rotate(-90deg)}
+.situation-card>.situation-head h4{margin:3px 0 0;font-size:17px;line-height:1.25}
+.situation-card:not(.expanded)>:not(.situation-head){display:none}
+.situation-card.expanded{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));box-shadow:var(--shadow)}
+.situation-card.expanded>:not(.situation-head){margin-left:17px;margin-right:17px}
+.situation-card.expanded>:last-child{margin-bottom:17px}
+.situation-card.expanded>.competence-strip{margin-top:3px}
+.situation-card.search-match>.situation-head{background:var(--panel-2)}
+@media(max-width:560px){
+  .situation-card>.situation-head{padding:13px 42px 13px 14px}
+  .situation-card>.situation-head h4{font-size:15px}
+  .situation-card.expanded>:not(.situation-head){margin-left:14px;margin-right:14px}
+  .situation-card.expanded>:last-child{margin-bottom:14px}
+}
+
+/* v2.5 situation favorites and compact punishment preview */
+.situation-card>.situation-head{padding-right:82px}
+.situation-favorite-btn{position:absolute;right:42px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:21px;line-height:1;cursor:pointer;z-index:2}
+.situation-favorite-btn:hover{background:var(--panel);color:#d59b00}
+.situation-favorite-btn.active{color:#d59b00}
+.situation-card.situation-favorite{border-color:color-mix(in srgb,#d59b00 42%,var(--line))}
+.situation-penalty-summary{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 12px;border-radius:10px;background:var(--panel-2);font-size:13px}
+.situation-penalty-summary span{color:#d59b00;letter-spacing:1px}
+.situation-penalty-summary small{color:var(--muted)}
+@media(max-width:640px){.situation-card>.situation-head{padding-right:76px}.situation-favorite-btn{right:38px;width:30px;height:30px}}
